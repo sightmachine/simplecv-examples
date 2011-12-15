@@ -79,3 +79,30 @@ That in turn should launch something that looks like the following:
 If you can't get to the shell, then head over to: http://help.simplecv.org
 
 
+
+Loading and Saving Images
+====================
+First thing we are going to do is load an image:
+
+	>>> logo = Image("simplecv")
+
+what that will do is load the SimpleCV logo into memory.
+Now we want to see it:
+
+	>>> logo.show()
+
+
+
+
+
+To load an image, specify the file path in the constructor:
+
+	>>> my_image = Image("path/to/image.jpg")
+
+To save the image, use the save method.  It will automatically use the file
+you loaded the image from:
+
+	>>> my_image.save()
+
+
+

@@ -17,25 +17,6 @@
 {% block header %}
     <div class="header-wrapper">
       <div class="header">
-        {%- if logo %}
-          <p class="logo"><a href="{{ pathto(master_doc) }}">
-            <img src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
-          </a>
-          </p>
-        {%- endif %}
-
-          {%- block navbar -%}
-          <div class="navbar">
-          <ul>
-            <li><a href="http://doc.simplecv.org">[Documentation]</a></li>
-            <li><a href="http://www.simplecv.org">[Download]</a></li>
-            <li><a href="http://help.simplecv.org">[Help]</a></li>
-            <li><a href="http://github.com/ingenuitas/simplecv-examples">[Tutorial Source]</a></li>
-          </ul>
-
-
-       </div> <!-- end navbar -->
-         {%- endblock -%}
        </div>
     </div>
 {% endblock %}
@@ -46,9 +27,25 @@
     <!-- <div id="blue_tile"></div> -->
 
         <div class="sphinxsidebar">
+        {%- if logo %}
+            <a href="{{ pathto(master_doc) }}">
+            <img src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
+          </a>
+        {%- endif %}
         <p>
-          Examples using SimpleCV
+          External Links
         </p>
+        {%- block navbar -%}
+        <div class="navbar">
+        <ul>
+          <li><a href="http://doc.simplecv.org">[Documentation]</a></li>
+          <li><a href="http://www.simplecv.org">[Download]</a></li>
+          <li><a href="http://help.simplecv.org">[Help]</a></li>
+          <li><a href="http://github.com/ingenuitas/simplecv-examples">[Tutorial Source]</a></li>
+        </ul>
+        </div> <!-- end navbar -->
+        {%- endblock -%}
+
         {%- if pagename != 'index' %}
         <div class="rel">
           {%- for rellink in rellinks|reverse %}
@@ -61,7 +58,7 @@
 
         {% endif %}
 
-        <h3>{{ _('Contents') }}</h3>
+        <h3>{{ _('SimpleCV Examples') }}</h3>
          {{ toc }}
 
       </div>
