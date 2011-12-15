@@ -1,0 +1,8 @@
+# cruft
+.*.swp
+*.pyc
+.DS_Store
+*.pdf
+
+# output of the sphinx build of the documentation
+_build
