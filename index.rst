@@ -453,3 +453,4 @@ SimpleCV.  Here is a list of examples that are available.
    examples/helloworld
    examples/interacting-with-the-display
    examples/directory-of-images
+   examples/macros
