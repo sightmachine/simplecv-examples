@@ -26,6 +26,11 @@ Then for the html variant::
   $ make html
 
 
+If you want to rebuild make sure you clean::
+
+  $ make clean
+  $ make html
+
 
 Auto Building the tutorial
 ==========================================
