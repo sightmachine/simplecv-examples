@@ -14,6 +14,7 @@ Here is the code::
 
 
 
+Download :download:`the example script <../code/helloworld.py>`
 
 What is going on in this example is the::
 

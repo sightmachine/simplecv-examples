@@ -30,6 +30,8 @@ Now we will incorporate this into our example::
 		img.save(disp)
 
 
+Download :download:`the example script <../code/interacting-display.py>`
+
 So what is happening here. Is we created a display object.  It then checks
 it's function called isNotDone().  That function updates the display and
 makes sure to see if any events have occurect, such as in our case the screen
