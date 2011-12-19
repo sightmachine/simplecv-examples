@@ -293,11 +293,13 @@ picture.
 
 
 which should give you an output like::
+
  <SimpleCV.Features.Detection.Corner object at 0x3d5f950>,
  <SimpleCV.Features.Detection.Corner object at 0x3d5f990>,
  <SimpleCV.Features.Detection.Corner object at 0x3d5f9d0>,
  <SimpleCV.Features.Detection.Corner object at 0x3d5fa10>,
  <SimpleCV.Features.Detection.Corner object at 0x3d5fa50>]
+
 
 This means we found blobs, but we didn't store that information anywhere.
 What is happening is it is "returning" the blobs.  So to do that we just
@@ -454,3 +456,5 @@ SimpleCV.  Here is a list of examples that are available.
    examples/interacting-with-the-display
    examples/directory-of-images
    examples/macros
+   examples/kinect
+   examples/timing
