@@ -458,3 +458,4 @@ SimpleCV.  Here is a list of examples that are available.
    examples/macros
    examples/kinect
    examples/timing
+   examples/parking
