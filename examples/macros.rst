@@ -61,7 +61,7 @@ as easy as:
 
 	>>> macro showblobs 4-6
 
-It's just ** macro name lines **.
+It's just **macro name lines**.
 Then to run it you just use:
 
 	>>> showblobs

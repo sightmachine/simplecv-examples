@@ -449,13 +449,16 @@ SimpleCV.  Here is a list of examples that are available.
 .. note:: All the code examples should be found in the 'code' directory of this tutorial if you downloaded it
 
 .. toctree::
-   :numbered:
-   :maxdepth: 2
-   
-   examples/helloworld
-   examples/interacting-with-the-display
-   examples/directory-of-images
-   examples/macros
-   examples/kinect
-   examples/timing
-   examples/parking
+	:numbered:
+	:maxdepth: 2
+
+	examples/helloworld
+	examples/interacting-with-the-display
+	examples/directory-of-images
+	examples/macros
+	examples/kinect
+	examples/timing
+	examples/parking
+	examples/segment
+	 
+ 
