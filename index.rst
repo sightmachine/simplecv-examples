@@ -460,5 +460,7 @@ SimpleCV.  Here is a list of examples that are available.
 	examples/timing
 	examples/parking
 	examples/segment
-	 
+	examples/image-math
+
+
  
