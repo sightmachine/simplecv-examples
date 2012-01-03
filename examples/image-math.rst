@@ -184,3 +184,216 @@ Let's use that in a complete program below::
 
 
 
+Histograms
+==========================
+
+Another extremely useful tool when performing math on images is to use
+a histogram.  A histogram is what is typically used in statistics, and
+is basically just a plot of the values in a list.  These values can
+be anything really, from a list of the area of features found, to coordinates,
+etc.  But what typically histograms are used for is a list of all the colors
+from each of the color channels in an image.
+
+Earlier we talked about colors ranging from 0 to 255. And this is per channel
+on a grey image the same color is used across all channels.  For instance
+let's take a look at the histogram of the simplecv logo in grey.::
+
+	>>> img = Image('simplecv')
+	>>> gray = img.toGray()
+	>>> histogram = gray.histogram()
+	>>> len(histogram)
+	50
+	>>> print histogram
+	[1929,
+	 2562,
+	 ...
+	 0,
+	 2372]
+
+	
+This was a list of values as a frequency of their occurance in the image.
+In this case there are 50 values in this list.  These are referred to as
+**bins**.  You can change the number of bins by passing it as a value. For
+instance if we want to show all 255 values then just use.::
+
+	>>> histogram = gray.histogram(255)
+	>>> len(histogram)
+	255
+	
+
+Now we want to see what that actually looks like so we will plot it.
+
+	>>> plot(histogram)
+
+
+and you should see an image similiar to.
+
+	.. figure:: ../images/simplecv-histogram.png
+
+	Histogram of SimpleCV logo in Gray
+
+
+If you look at the above image you will see basically the distribution
+of the colors plotted.  Since the image is gray, then you will notice a
+high frequency of occurances near the black (0) and white (255) end of
+the histogram, with not much in the middle.  To verify this, let's do
+the same plot with the color image to see the differences.  But we also
+have to plot each color channel seperate, so Red, Green, and Blue all
+range from 0 to 255.
+
+	>>> img = Image('simplecv')
+	>>> (red, green, blue) = img.splitChannels(False)
+	>>> red_histogram = red.histogram(255)
+	>>> green_histogram = green.histogram(255)
+	>>> blue_histogram = blue.histogram(255)
+
+
+	.. figure:: ../images/simplecv-histogram-red.png
+
+	Histogram of SimpleCV logo Red Color Channel
+
+
+	.. figure:: ../images/simplecv-histogram-green.png
+
+	Histogram of SimpleCV logo Green Color Channel
+	
+
+	.. figure:: ../images/simplecv-histogram-blue.png
+
+	Histogram of SimpleCV logo Blue Color Channel
+
+
+
+Color Space
+====================
+Something that hasn't been talked about too much is the idea of color space.
+Basically this is the method used to describe color.  The most commonly used
+and well known color space is Red-Green-Blue (RGB).  It's similiar to something
+you may have seen in art class called the color wheel.
+
+
+	.. figure:: ../images/color-wheel.png
+
+	Image of Color Wheel
+
+
+What color space is basically the way you figure out the color.  For instance
+in RGB color space to get the color blue, it's just (0,0,255) for the RGB values.
+There are many other ways to describe color.  Another popular method is
+called Hue-Saturation-Value (HSV).  This is another method to represent blue for
+instance, and it's value in HSV is (240,100,100).  Lets look at an example.::
+
+	>>> img = Image('simplecv')
+	>>> hsv = img.toHSV()
+	>>> histogram = hsv.histogram(255)
+	>>> print histogram
+	[34, 209, 408, 602, 676, 0, 688, 680, 603, 591, 485, 0, 546, 603, 677,
+	743, 0, 815, 689, 536, 317, 187, 0, 101, 56, 26, 12, 0, 10, 8, 5, 5, 4,
+	0, 0, 0, 2, 0, 0, 3, 4, 9, 10, 12, 0, 5, 4, 0, 0, 0, 0, 1, 3, 2, 0, 0,
+	7, 12, 10, 6, 0, 10, 10, 5, 2, 1, 0, 0, 1, 0, 0, 3, 0, 8, 13, 18, 16, 0,
+	4, 5, 1, 0, 2, 0, 9, 3, 3, 2, 0, 2, 21, 13, 15, 21, 0, 28, 3, 6, 2, 0,
+	0, 0, 0, 7, 6, 0, 11, 17, 15, 14, 0, 6, 2, 5, 27, 11, 0, 0, 0, 0, 0, 0,
+	18, 22, 38, 66, 15, 0, 1, 3, 1, 1, 0, 0, 18, 19, 1, 1, 0, 12, 26, 34, 14,
+	14, 0, 42, 2, 0, 0, 0, 0, 0, 0, 0, 11, 0, 59, 33, 13, 8, 0, 1, 0, 0, 0, 4,
+	0, 0, 0, 0, 0, 0, 4, 23, 21, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22,
+	20, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 76, 22, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 33, 16, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7,
+	0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1135, 1237]
+	>>> plot(histogram)
+
+
+
+
+As you can see the values are quite a bit different than the same image's
+histogram using the RGB color space.
+
+
+	.. figure:: ../images/simplecv-histogram-hsv.png
+
+	Histogram of SimpleCV logo using HSV colorspace
+
+
+
+Now many of these different color spaces are used for many various things.
+In the case of HSV the first value, hue, can be adjusted to basically adjust
+the color level, so for instance if you wanted to shift the blue to a light
+blue then you can just adjust the hue channel. If you were using RGB color
+space, trying to adjust the "lightness" of the blue would require you to
+adjust 3 channel values.
+
+For the most part you won't have to muddle around with other color spaces.
+All the image algorithms can work the same in the color spaces, but color
+spaces make it easier to optimize for particular tasks.  For instance maybe
+we wanted to check how blue something was.  Using HSV we could easily use
+the saturation value as a threshold, so if it was above 80 but below 100.  To
+do this using RGB would be much more complex.
+
+
+please visit the wikipedia article if you would like to know more about colorspace:
+http://en.wikipedia.org/wiki/Color_space
+
+
+
+Using Hue Peaks
+-------------------------
+The hue peaks function is used to help figure out what the dominant color
+in an image is.  Using a histogram we can plot the values and see the actual
+peaks.  What the huePeaks function does it make it convient to find this color.
+In this example we will use the lenna image to find the color (or hue) peaks.::
+
+	>>> lenna = Image('lenna')
+	>>> histogram = lenna.hueHistogram()
+	>>> print histogram
+	[13682 14520 12393 11312 10730  9966  9128  8128  7309  5738  4115  2624
+		1670  1252  1358  2110  2978  2430  1083   230    62    30    18    14
+			 5     1     2     0     1     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     0     0     0     0     0     0     0     0     0     0
+			 0     0     1     0     1     0     0     0     1     2     1     2
+			 3     5     7     5     7    14    20    17    11    22    29    37
+			45    67    66    72    95   127   133   157   189   223   263   310
+		 336   459   471   489   571   648   595   761   994  1087  1318  1590
+		1897  2357  3120  3674  4432  4480  4876  4798  4699  4292  3575  3055
+		2653  2510  2857  3287  4051  4720  5857  7496  9962 12562 26794]
+	>>> peaks = lenna.huePeaks()
+	>>> print peaks
+	[(162.0, 0.0186004638671875)]
+	>>> plot(histogram)
+
+
+
+Hue Histogram of Lenna Picture
+
+
+	.. figure:: ../images/lenna-histogram-hue-peaks.png
+
+
+
+As you can see, the huePeaks() function list the value of 162, and looking
+at the plot you can see there is a peak there.  Where this type of function
+maybe quite useful is trying to bring out the highest value color in the
+picture.  To do this just use::
+
+	>>> lenna = Image('lenna')
+	>>> peaks = lenna.huePeaks()
+	>>> print peaks
+	[(162.0, 0.0186004638671875)]
+	>>> peak_one = peaks[0][0]
+	>>> print peak_one
+	162.0
+	>>> hue = lenna.hueDistance(peak_one)
+	>>> hue.show()
+
+
+
+	
+Hue Distance of Lenna Image (blacker means closer to hue peak)
+
+	.. figure:: ../images/lenna-hue-distance.png
+
+
+	
