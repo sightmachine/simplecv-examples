@@ -396,4 +396,56 @@ Hue Distance of Lenna Image (blacker means closer to hue peak)
 	.. figure:: ../images/lenna-hue-distance.png
 
 
+
+
+Creating a Motion Blur Effect
+-----------------------------
+Here is a very good example of where you could use image math to add some
+effects to a video.  Using some of the simple math functions built into
+python we can quickly do this to a live stream.
+
+Let's show the code::
+
+	from operator import add
+	from SimpleCV import *
+
+	cam = Camera()
+
+	frames_to_blur = 4
+	frames = ImageSet()
+
+	while True:
+		frames.append(cam.getImage())
+
+		if len(frames) > frames_to_blur:
+			frames.pop(0)  #remove the earliest frame if we're at max
+
+		pic = reduce(add, [i / float(len(frames)) for i in frames])
+		#add the frames in the array, weighted by 1 / number of frames
+
+		pic.show()
+
+
+:download:`Download the script <../code/motion-blur.py>`
+
+
+
+Let's discus what is happening here.  We load add from the operator library
+so we can 'add' the images back together.  We set the frames_to_blur to 4, what
+this does is set the number of frames to basically blur together.  We then
+create a ImageSet, this is basically a list of images with some built in
+options like mass saving the images in the list or viewing them. We then
+run through an infinite loop and keep adding images, if the number of frames
+added exceeds the number to blur then remove one from the list.
+
+The reduce function is part of the standard python library.  You may want
+to look some more into using map and reduce as functions in python as they
+are very quick and powerful.  In this case we are using the add function
+to reduce all the images (or add them together).  After they are summed into
+a single image they are then shown.
+
+
+
+
+
 	
