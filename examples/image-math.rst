@@ -446,6 +446,49 @@ a single image they are then shown.
 
 
 
+Simulating Long Exposure
+--------------------------------
+Have you ever saw the type of art people can make using long exposure?
+Typically the images look something similiar to:
 
 
+.. figure:: http://upload.wikimedia.org/wikipedia/commons/thumb/8/80/LED_T-Shirt.jpeg/800px-LED_T-Shirt.jpeg
+
+
+
+This is commonly refered to as light art.  In this example we are going
+to simulate what is happening.  Basically it's just a sum of the images
+compressed into a single image.::
+
+	from SimpleCV import *
+
+	image_directory = "../images/exposure/"
+	frames = ImageSet() #create an empty image set
+	frames.load(image_directory) #load the directory of images
+	img = Image(frames[0].size()) #create an initial empty image
+	num_of_frames = len(frames) #count the number of images
+
+	for frame in frames:
+		img = img + (frame / num_of_frames) # merge the images together
+
+	img.show()
+	time.sleep(1000)
+
+
+
+
+:download:`Download the script <../code/long-exposure.py>`
 	
+In our example we take a set of images, load them into memory, then run
+though that list and compress them. The images directory has about 10
+images of a person walking by a wall.  We create an imageset to store
+images in, this could be a list, but using the built in image set makes
+it much easier for us to load.  We have to then create a empty image,
+this is used as a base to average the rest of the images against.  We then
+run through the list of frames.
+
+When ran we should get something that looks like:
+
+.. figure:: ../images/long-exposure.png
+
+
