@@ -492,3 +492,104 @@ When ran we should get something that looks like:
 .. figure:: ../images/long-exposure.png
 
 
+
+
+Chroma Key (Green Screen)
+------------------------------
+We all have seen the weather reporter on television.  They stand up in
+front of a screen and point to where storms maybe moving in, which direction
+the wind is moving, etc.  The method they are doing this with is typically
+called a green screen.  It is also (or used to be) one of the main methods
+to insert an actor into a movie or existing footage.
+
+The way this is performed is basic image math, we are basically subtracting
+the certain colors we don't want from that image.  In our example we put
+our "anonymous" person in front of the green screen.
+
+
+.. figure:: ../images/green-screen-person.png
+
+
+picture taken from: http://www.flickr.com/photos/pittaya/4785149065/
+
+
+.. figure:: ../images/green-screen-wallst.png
+
+
+picture taken from: http://www.flickr.com/photos/willemvanbergen/271204700/
+
+
+
+We use these pictures to create a mask.  And no, pardon the pun, but not the mask
+the person is wearing in the picture.  A mask has a similiar concept in image processing
+and in theory is similiar, you would wear a mask to hide your face, well
+a mask in image math is used to hide that part of the image.  Our masked
+image should look something like:
+
+
+.. figure:: ../images/green-screen-masked.png
+
+
+
+
+To finally get something that looks like:
+
+.. figure:: ../images/green-screen-result.png
+
+
+
+The code to perform a green screen is::
+
+	from SimpleCV import *
+
+	sleep_time = 2 #the amount of time to show each image for
+
+	#Load and show the greenscreen image
+	print "Showing Greenscreen image"
+	greenscreen = Image("../images/green-screen-person.png")
+	greenscreen.show()
+	time.sleep(sleep_time)
+
+
+	#load and show the background image
+	print "Showing background image"
+	background = Image("../images/green-screen-wallst.png")
+	background.show()
+	time.sleep(sleep_time)
+
+	#Create the mask to apply and show the mask
+	print "Showing Masked Image"
+	mask = greenscreen.hueDistance(color=Color.GREEN).binarize()
+	mask.show()
+	time.sleep(sleep_time)
+
+	#Combine the mask and other images to get the final result
+	print "Showing final image"
+	result = (greenscreen - mask) + (background - mask.invert())
+	result.show()
+	time.sleep(sleep_time)
+
+
+:download:`Download the script <../code/green-screen.py>`
+
+
+Now performing the mask is similiar to what we did in the previous example
+using hue peaks.  We used the hue distance to create the image and tell it
+to use green as the color, then we use binarize to either make it black
+or white as we need that for the image math.::
+
+	mask = greenscreen.hueDistance(color=Color.GREEN).binarize()
+
+
+Now that we have the mask we do the actually image math with it::
+
+	result = (greenscreen - mask) + (background - mask.invert())
+
+
+Here we are removing the mask from the green screen and adding it to
+the background with the inverted mask removed.  You can think of it
+as cutting out a shape from one colored paper, and for it to fit into
+the big background piece of colored paper you would also have to remove
+that section from the background.
+
+
