@@ -180,7 +180,42 @@ Let's use that in a complete program below::
 	
 
 :download:`Download the code <../code/motion-detection.py>`
+
 	
+Exceptions in Image Math
+--------------------------------
+In image math you will never have a negative number.  This is because
+values will push the value.  The values can be between 0 and 255, no more
+no less.
+
+Examples::
+
+	200 - 255 = 0
+	100 + 200 = 255
+	0 + 300 = 255
+	
+
+If we remember, that color or greyscale still uses the 0 to 255 value.
+And keep in mind that white is all colors, and black is the absence of
+color. So if you were to add say a completely blue image to a white image
+the image would still be white, because::
+
+	white = (255,255,255)
+	blue = (0, 0, 255)
+	white + blue = (255, 255, 255)
+
+
+And in fact you can verify this with the following code::
+
+	>>> black_img = Image((20, 20)) #make a 20 x 20 pixel black image
+	>>> black_img.show()
+	>>> blue_img = Image(black_img.getNumpy() + Color.BLUE)
+	>>> blue_img.show()
+	>>> white_img = black_img.invert()
+	>>> white_img.show()
+	>>> added_img = white_img + blue_img
+	>>> added_img.show()
+
 
 
 
@@ -452,8 +487,10 @@ Have you ever saw the type of art people can make using long exposure?
 Typically the images look something similiar to:
 
 
-.. figure:: http://upload.wikimedia.org/wikipedia/commons/thumb/8/80/LED_T-Shirt.jpeg/800px-LED_T-Shirt.jpeg
+	.. figure:: ../images/light-art.png
 
+
+image taken from: http://www.flickr.com/photos/torres21/3688474968/
 
 
 This is commonly refered to as light art.  In this example we are going
