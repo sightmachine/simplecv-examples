@@ -81,13 +81,146 @@ In fact, that's what the **blit()** function did in one step, but instead
 lets walk through that example.::
 
 	>>> scv = Image('simplecv')
-	>>> scv.addDrawingLayer()
-	1
-	>>> scv.addDrawingLayer()
+	>>> size = scv.size()
+	>>> print size
+	(118, 118)
+	>>> print scv._mLayers #this is where all the layers are stored
+	[<SimpleCV.DrawingLayer.DrawingLayer instance at 0x29afdd0>]
+	>>> layer1 = DrawingLayer(size)
+	>>> scv.addDrawingLayer(layer1)
+	>>> print scv._mLayers
+	[<SimpleCV.DrawingLayer.DrawingLayer instance at 0x29afdd0>,
+	<SimpleCV.DrawingLayer.DrawingLayer instance at 0x29b3b90>]
+
+
+
+As you can see we now have two layers, and we can continue to add as many
+as we would like.  In this example the layer isn't really doing anything.
+But let's continue to extend it to make it actually do something.
+
+	>>> logo = Image('logo')
+	>>> dl = logo.dl()
+
+
+In this example we are loading up the logo and then loading up it's
+drawing layer.  Please note that the dl() function is just a shortcut
+to the getDrawingLayer() function.
+
+	>>> dl = logo.dl()
+	>>> dl = logo.getDrawingLayer() #same as above
+
+
+You can also specify what layer number you are trying to access, so in
+the previous example we can see there are two layers::
+
+	>>> print len(scv._mLayers)
 	2
-	>>> scv.getDrawingLayer(1)
-	'a new image'
-	>>> scv.getDrawingLayer(2)
-	'another layer'
+	>>> dl = scv.dl(0)
+	>>> print dl
+	<SimpleCV.DrawingLayer.DrawingLayer instance at 0x29afdd0>
+	>>> dl = scv.dl(1)
+	>>> print dl
+	<SimpleCV.DrawingLayer.DrawingLayer instance at 0x29b3b90>
+
+
+Now these drawing layers can be used between images.  Let's take a layer
+from one image and apply it to another image.
+
+	>>> scv = Image('scv')
+	>>> logo = Image('logo')
+	>>> sdl = scv.dl()
+	>>> ldl = logo.dl()
+	>>> scv.addDrawingLayer(ldl)
+	>>> scv.show()
+
+
+Now you should see something like:
+
+.. figure:: ../images/simplecv-logo.png
+
+
+But wait, that isn't correct.  We just added the logo layer, so it should
+be overlayed on top of the simplecv logo.  Well this is because nothing
+is drawn on that actual layer.  The layers are used to actually mark up
+the image.  For example, you want to draw a box around a face that was
+detected in the image.
+
+	>>> lenna = Image('lenna')
+	>>> facelayer = DrawingLayer((lenna.width, lenna.height))
+	>>> facebox_dim = (200,200)
+	>>> center_point = (lenna.width / 2, lenna.height / 2)
+	>>> facebox = facelayer.centeredRectangle(center_point, facebox_dim)
+	>>> lenna.addDrawingLayer(facelayer)
+	>>> lenna.applyLayers()
+	>>> lenna.show()
 	
+
+Now you should get an image similiar to:
+
+.. figure:: ../images/display-lenna-facebox.png
+
+
+
+Using this we are able to draw many various types of objects, for instance
+a circle.
+
+	>>> circlelayer = DrawingLayer((lenna.width, lenna.height))
+	>>> circlelayer.circle(center_point, 10)
+	>>> lenna.addDrawingLayer(circlelayer)
+	>>> lenna.applyLayers()
+	>>> lenna.show()
+
+
+And now you should get something like:
+
+.. figure:: ../images/display-lenna-boxcircle.png
+
+
+
+Now we can use that layer from the lenna image on another image. So if
+we use
+
+	>>> scv = Image('simplecv')
+	>>> scv.addDrawingLayer(circlelayer)
+	>>> scv.applyLayers()
+	>>> scv.show()
+
+You will notice you just get the simplecv logo, and that the circle is
+not in the center.  Well this was because we specified the dimensions of
+the circle layer to be the same as the lenna image, not the simplecv logo.
+To demostrate let's make a new circle, this time red on the simplecv logo.
+
+	>>> redcircle = DrawingLayer((scv.width, scv.height))
+	>>> redcircle.circle((10,10), 10, color=Color.RED) #add circle point 10,10, radius 10.
+	>>> scv.addDrawingLayer(redcircle)
+	>>> scv.applyLayers()
+	>>> scv.show()
+
+
+Now you should see something like:
+
+.. figure:: ../images/display-simplecv-circle.png
+
+
+Now we can take that same layer and add it to the lenna image.
+
+	>>> lenna.addDrawingLayer(redcircle)
+	>>> lenna.applyLayers()
+	>>> lenna.show()
+
+
+Should now give an image simliar to:
+
+.. figure:: ../images/display-lenna-circle.png	
+
+
+
+Now, let's say that we just want our original image.  It's as simple as
+running
+
+	>>> lenna.clearLayers()
+	>>> lenna.show()
+
+
+And you should now have the original lenna image back.
 
