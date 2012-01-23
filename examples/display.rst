@@ -224,3 +224,153 @@ running
 
 And you should now have the original lenna image back.
 
+
+
+Marking up the Image
+-------------------------
+There are various ways to notify a user when something occurs on the image.
+Built into SimpleCV are a small number of ways to notify a user when say
+a particular feature is found.  A good example would be to draw a box around
+a face in a picture when face detection is being ran to know that the program
+had actually found a face.  Or maybe you want to just show those interesting
+features in a image.  For example we will show the corners found in the
+standard lenna image.
+
+	>>> img = Image('lenna')
+	>>> corners = img.findCorners()
+	>>> corners.draw()
+	>>> img.show()
+
+
+You should get something that looks like:
+
+.. figure:: ../images/display-lenna-corners.png	
+
+
+Notice the green circles.  They are to show use where the corner algorithm
+had found everything.   SimpleCV also allows you to put these various type
+of draw objects such as, rectangle, circle, etc. on screen to notify
+the user something has occured.  The draw method used in the last example
+is just a very quick and automatic way to display these found features.
+
+
+In the last example, we learned how to get the drawing layer so we can
+mark it up. In that example we just displayed a circle on the screen.
+It's as easy as:
+
+	>>> img = Image('simplecv')
+	>>> img.dl().circle((10,10), 10, Color.RED)
+	>>> img.show()
+
+And you should have something similiar to:
+
+.. figure:: ../images/display-simplecv-circle-corner.png
+
+
+
+Drawing a rectangle is almost identical:
+
+	>>> img = Image('simplecv')
+	>>> img.dl().rectangle((10,10), (10,10), Color.RED)
+	>>> img.show()
+
+
+
+It is also possible to draw curve's, or more commonly refered to as
+bezier curves.  These are basically just a set of points that can make
+up a line.  We will randomly generate a list of points then plot them.
+
+	>>> img = Image('simplecv')
+	>>> points = []
+	>>> for p in points: points.append((p, p ** 2))
+	>>> img.dl().bezier(points, 3, Color.RED)
+	>>> img.show()
+
+
+and you should get something similiar to:
+
+.. figure:: ../images/display-simplecv-curve.png
+
+
+The list was randomly generated, but any set of points could have been
+used.  Now we could use this to draw shapes, although, there is a better
+function built in to peform this type of task.  We typically refer to
+shapes as circle's, square, triangle, etc.  But more generally these
+are refered to as a polygon.  To draw them in SimpleCV we just call
+the polygon function on the drawing layer.
+
+	>>> img = Image('simplecv')
+	>>> points = [(10,10),(30,20),(50,10),(40,50),(10,40)]
+	>>> img.dl().polygon(points, filled=True, color=Color.RED)
+	>>> img.show()
+
+
+You should get an image similiar to:
+
+.. figure:: ../images/display-simplecv-polygon.png	
+
+
+Notice how we specified the filled option.  You could manually define
+points to say make a certain shape pop up when something either passes
+or fails.
+
+
+
+Text and Fonts
+------------------------------------------
+Displaying text on the screen is extremely easy in SimpleCV.  Typically
+text is much more useful to display than say an object on the screen.
+Although there are instances were the latter is more useful.  For example
+in the previous corner detection example, we want to know where the corners
+are located, it is much easier to draw them at their actual cordinates than
+say printing their coordinates to the screen.  Now text maybe more useful
+in a case where the status may not be so binary in nature. In a manner
+of speaking, a corner is either found or not, but maybe we want to know
+how many corners were found overall.  This is where displaying text comes
+in way more useful.  In fact let's code that up.
+
+	>>> img = Image('lenna')
+	>>> corners = img.findCorners()
+	>>> num_corners = len(corners)
+	>>> txt = "Corners Found:" + str(num_corners)
+	>>> img.drawText(txt)
+	>>> img.show()
+
+
+and you should get an image similiar to:
+
+.. figure:: ../images/display-lenna-text-corners.png
+
+
+
+Another thing you are able to do with SimpleCV is set the font's to
+be some other type of font.  To see what fonts are available you just
+use the command::
+
+	>>> img = Image('simplecv')
+	>>> img.dl().listFonts()
+	[u'liberationserif',
+	 u'dejavuserif',
+	...
+	 u'purisa',
+	 u'ubuntu']
+
+
+The above example has been shorted but you can see there is a big list.
+You may notice the u'FONT'.  This is just specifying the string is encoded
+in unicode.  We can then use this list of fonts to pick one to use to display
+text.  For convience we'll just use one of the last ones on the list,'purisa'.
+Notice the u' wasn't included.  This is due to the fact that the
+unicode part of the string isn't required, although can be included if wanted.
+
+	>>> img = Image('lenna')
+	>>> img.dl().selectFont('purisa')
+	>>> img.drawText("Hello!")
+	>>> img.show()
+
+
+This should give something like:
+
+.. figure:: ../images/display-lenna-font-purisa.png
+
+
