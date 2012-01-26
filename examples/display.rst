@@ -374,3 +374,104 @@ This should give something like:
 .. figure:: ../images/display-lenna-font-purisa.png
 
 
+
+Now, let's say we want to draw some text on the image, but in this case
+we want it to be partially transparent so we can see what is going on
+behind it.  And in fact we'll use the same polygon example, except this
+time we'll make it partly transparent.
+
+	>>> img = Image('simplecv')
+	>>> points = [(10,10),(30,20),(50,10),(40,50),(10,40)]
+	>>> img.dl().setLayerAlpha(5)
+	>>> img.dl().polygon(points, filled=True, color=Color.RED)
+	>>> img.show()
+
+
+You should get something similiar to:
+
+.. figure:: ../images/display-lenna-font-purisa.png
+
+
+
+Making a custom display object
+--------------------------------------------
+This example we are going to display a Walk or Don't Walk type scenario.
+In the example we just detect if light has been shown to the camera.
+This could maybe be used to warn pedistarians if a car is coming down
+the street.  To do this we use the following code::
+
+	from SimpleCV import *
+
+	cam = Camera()
+	img = cam.getImage()
+	display = Display()
+	width = img.width
+	height = img.height
+	screensize = width * height
+	divisor = 5 # used for automatically breaking up image.
+	threshold = 150 # color value to detect blob is a light
+
+	def stoplayer():
+		newlayer = DrawingLayer(img.size())
+		points = [(2 * width / divisor, height / divisor),
+							(3 * width / divisor, height / divisor),
+							(4 * width / divisor, 2 * height / divisor),
+							(4 * width / divisor, 3 * height / divisor),
+							(3 * width / divisor, 4 * height / divisor),
+							(2 * width / divisor, 4 * height / divisor),
+							(1 * width / divisor, 3 * height / divisor),
+							(1 * width / divisor, 2 * height / divisor)
+						]
+		newlayer.polygon(points, filled=True, color=Color.RED)
+		newlayer.setLayerAlpha(75)
+		newlayer.text("STOP", (width / 2, height / 2), color=Color.WHITE)
+
+		return newlayer
+
+	def golayer():
+		newlayer = DrawingLayer(img.size())
+		newlayer.circle((width / 2, height / 2), width / 4, filled=True, color=Color.GREEN)
+		newlayer.setLayerAlpha(75)
+		newlayer.text("GO", (width / 2, height / 2), color=Color.WHITE)
+
+		return newlayer
+
+
+	while display.isNotDone():
+		img = cam.getImage()
+		min_blob_size = 0.10 * screensize # the minimum blob is at least 10% of screen
+		max_blob_size = 0.80 * screensize # the maximum blob is at most 80% of screen
+		blobs = img.findBlobs(minsize=min_blob_size, maxsize=max_blob_size) # get the largest blob on the screen
+
+		layer = golayer()
+
+		#If there is a light then show the stop
+		if blobs:
+			avgcolor = np.mean(blobs[-1].meanColor()) #get the average color of the blob
+
+			if avgcolor >= threshold:
+				layer = stoplayer()
+
+		img.addDrawingLayer(layer)
+		img.show()
+
+
+
+
+When it's okay to walk you should get an image similiar to:
+
+.. figure:: ../images/display-example-go.png
+
+
+and when it's not okay to walk you should get an image similiar to:
+
+.. figure:: ../images/display-example-stop.png
+
+
+Keep in mind that lighting conditions maybe different in your environment
+so you may have to play around with the threshold values to get it to be
+more accurate.  Even though a train detector seems silly, this example
+could easily be ported to do something else, it was just meant to show
+how you can easily mark up the display with useful information.
+
+
