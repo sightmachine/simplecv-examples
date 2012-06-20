@@ -32,7 +32,15 @@ and you should see something like:
    :align: center
    :alt: lenna cropped
 
+While this method of extracting the face is ok if you know the 
+coordinates of the face, with SimpleCV you have the possibility 
+to automate the task of finding segments in a picture. In this 
+case we want to find a face:
 
+	>>> segment = HaarCascade("face.xml")
+	>>> autoface = lenna.findHaarFeatures(segment)
+	>>> if ( autoface is not None ):
+	>>>	face = autoface[-1].crop()
 
 Now with this we can do some interesting things.  For instance maybe
 we want to zoom into the face to see better detail on it. This makes it
