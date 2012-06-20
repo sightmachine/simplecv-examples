@@ -41,6 +41,7 @@ case we want to find a face:
 	>>> autoface = lenna.findHaarFeatures(segment)
 	>>> if ( autoface is not None ):
 	>>>	face = autoface[-1].crop()
+	>>>	face.show()
 
 Now with this we can do some interesting things.  For instance maybe
 we want to zoom into the face to see better detail on it. This makes it
