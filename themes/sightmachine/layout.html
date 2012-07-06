@@ -1,0 +1,193 @@
+{#
+    sightmachine/layout.html
+    ~~~~~~~~~~~~~~~~~
+
+    Sphinx layout template for the sightmachine theme, originally written
+    by Brooks Ryba.
+
+    :copyright: Copyright 2007-2011 by the SightMachine team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- block doctype -%}
+<!doctype html>
+{%- endblock %}
+{%- set reldelim1 = reldelim1 is not defined and ' &raquo;' or reldelim1 %}
+{%- set reldelim2 = reldelim2 is not defined and ' |' or reldelim2 %}
+{%- set render_sidebar = (not embedded) and (not theme_nosidebar|tobool) and
+                         (sidebars != []) %}
+{%- set url_root = pathto('', 1) %}
+{# XXX necessary? #}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+{%- if not embedded and docstitle %}
+  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+{%- else %}<link rel="stylesheet" href="../../css/style.css" />
+  {%- set titlesuffix = "" %}
+{%- endif %}
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  {%- block htmltitle %}
+  <title>SimpleCV: {{ title|striptags|e }}{{ titlesuffix }}</title>
+  {%- endblock %}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="SimpleCV is an open source framework for building computer vision applications.">
+  <meta name="viewport" content="width=device-width">
+  <meta name="robots" content="index, follow">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="http://simplecv.org/css/style.css" />
+  <script src="js/libs/modernizr-2.5.0.min.js"></script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+    <!-- BEGIN Header -->
+    <div id="HeaderWrapper">
+        <div id="Header">
+            <div id="HeaderTop">
+                <div id="Logo">
+                    <a href="/index.html"><img src="images/logo.gif" width="243" height="63" alt="SimpleCV"></a>
+                </div>
+                <ul id="Social">
+                    <li>
+                        <a href="https://github.com/ingenuitas/simplecv"><img src="images/github_grey.gif" height="28" width="28" alt="GitHub"></a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/#!/Simple_CV"><img src="images/twitter_blue.gif" height="28" width="28" alt="Twitter"></a>
+                    </li>
+                    <li>
+                        <a href="http://www.facebook.com/pages/SimpleCV/150136128401869"><img src="images/facebook_blue.gif" height="28" width="28" alt="Facebook"></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/115199279159361214026/posts"><img src="images/google_red.gif" height="28" width="28" alt="Google+"></a>
+                    </li>
+                </ul>
+            </div>
+            <ul id="Menu1" role="navigation" itemprop="breadcrumb">
+                <li class="homeButton">
+                    <a href="/index.html"></a>
+                </li>
+                <li>
+                    <a href="/learn/">LEARN</a>
+                </li>
+                <li>
+                    <a class="current" href="/docs/">DOCUMENTATION</a>
+                </li>
+                <li>
+                    <a href="/contribute/">CONTRIBUTE</a>
+                </li>
+                <li>
+                    <a href="/news/">NEWS &amp; EVENTS</a>
+                </li>
+                <li>
+                    <a href="/download/">DOWNLOAD</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END Header -->
+
+    <!-- BEGIN Content -->
+    <div id="Content" role="Main" itemprop="mainContentOfPage">	
+      <div id="LeftColumnWide">
+        <div id="PageBody">
+          {%- block content %}
+            <div id="" class="document">
+            {%- block document %}
+                <div class="documentwrapper">
+                {%- if render_sidebar %}
+                  <div class="bodywrapper">
+                {%- endif %}
+            <div id="doc_body"></div>
+                    <div class="body">
+                      {% block body %} {% endblock %}
+                    </div>
+                {%- if render_sidebar %}
+                  </div>
+                {%- endif %}
+                </div>
+            {%- endblock %}
+            </div>      
+          {%- endblock %}
+        </div>
+      </div>
+      
+      <div id="RightColumn">
+        <ul id="CalloutList">
+                <li class="callout">
+                    <div class="calloutLeft">
+                        <a href="/learn/examples.html"><img src="../../images/gears.png" width="53" height="53" alt="Example Code"></a>
+                        <p>Code</p>
+                    </div>
+                    <div class="calloutRight">
+                        <h3 class="calloutTitle">
+                            <a href="/learn/examples.html">Example Code</a>
+                        </h3>
+                        <p>
+				Learn by example through our fully-functioning sample applications.
+                        </p>
+                    </div>
+                </li>
+                <li class="callout">
+                    <div class="calloutLeft">
+                        <a href="/learn/tutorials.html"><img src="../../images/book.png" width="53" height="53" alt="Tutorials"></a>
+                    <p>Learn SimpleCV</p>
+                    </div>
+                    <div class="calloutRight">
+                        <h3 class="calloutTitle">
+				<a href="/learn/tutorials.html">Tutorials</a>
+                        </h3>
+                        <p>
+				These are step-by-step instructions to SimpleCV tools, techniques and concepts.
+                        </p>
+                    </div>
+                </li>
+                <li class="callout">
+                    <div class="calloutLeft">
+                        <a href="/learn/videos.html"><img src="../../images/videos.png" width="53" height="53" alt="Video Demos"></a>
+                    <p>Videos</p>
+                    </div>
+                    <div class="calloutRight">
+                        <h3 class="calloutTitle">
+				<a href="/learn/videos.html">Project Videos</a>
+                        </h3>
+                        <p>
+			Demonstration videos and videos from community events and presentations.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+      </div>
+    </div>
+    <!-- END Content -->
+
+    <!-- BEGIN Footer -->
+    <div id="FooterWrapper">
+        <div id="Footer">
+            <ul id="FooterLeft">
+                <li>&copy; <a href="http://www.sightmachine.com">Sight Machine</a> 2012</li>
+            </ul>
+        </div>
+    </div>
+    <!-- END Footer -->
+    
+    <!-- BEGIN Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+    <script src="js/libs/jquery-ui-1.8.21.custom.min.js"></script>  
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-23517471-3']);
+	  _gaq.push(['_setDomainName', 'simplecv.org']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+    </script>
+    <!-- END Scripts -->
+    <!--testy--->
+</body>
+</html>
