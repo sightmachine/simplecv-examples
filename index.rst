@@ -12,33 +12,33 @@
 			<strong>Note:</strong> These examples are written for SimpleCV version 1.2. Certain functions may not work in earlier versions. For best results, <a href="http://www.simplecv.org/download/">download the latest version</a>.
 		</p>
 		<ul>
-			<li><a href="/examples/helloworld.html">The Hello World program</a></li>
-			<li><a href="/examples/interacting-with-the-display.html">Interacting with the Display</a></li>
-			<li><a href="/examples/directory-of-images.html">Loading a Directory of Images</a></li>
-			<li><a href="/examples/macros.html">Macro’s</a></li>
-			<li><a href="/examples/kinect.html">Kinect</a></li>
-			<li><a href="/examples/timing.html">Timing</a></li>
-			<li><a href="/examples/parking.html"> Detecting a Car</a></li>
-			<li><a href="/examples/segment.html">Segmenting the Image and Morphology</a></li>
-			<li><a href="/examples/image-math.html">Image Arithmetic</a>
+			<li><a href="examples/helloworld.html">The Hello World program</a></li>
+			<li><a href="examples/interacting-with-the-display.html">Interacting with the Display</a></li>
+			<li><a href="examples/directory-of-images.html">Loading a Directory of Images</a></li>
+			<li><a href="examples/macros.html">Macro’s</a></li>
+			<li><a href="examples/kinect.html">Kinect</a></li>
+			<li><a href="examples/timing.html">Timing</a></li>
+			<li><a href="examples/parking.html"> Detecting a Car</a></li>
+			<li><a href="examples/segment.html">Segmenting the Image and Morphology</a></li>
+			<li><a href="examples/image-math.html">Image Arithmetic</a>
 				<ul>
-					<li><a href="/examples/image-math.html#exceptions-in-image-math">Exceptions in Image Math</a></li>
-					<li><a href="/examples/image-math.html#histograms">Histograms</a></li>
-					<li><a href="/examples/image-math.html#color-space">Color Space</a>
-					</li><li><a href="/examples/image-math.html#using-hue-peaks">Using Hue Peaks</a></li>
-					<li><a href="/examples/image-math.html#creating-a-motion-blur-effect">Creating a Motion Blur Effect</a></li>
-					<li><a href="/examples/image-math.html#simulating-long-exposure">Simulating Long Exposure</a></li>
-					<li><a href="/examples/image-math.html#chroma-key-green-screen">Chroma Key (Green Screen)</a></li>
+					<li><a href="examples/image-math.html#exceptions-in-image-math">Exceptions in Image Math</a></li>
+					<li><a href="examples/image-math.html#histograms">Histograms</a></li>
+					<li><a href="examples/image-math.html#color-space">Color Space</a>
+					</li><li><a href="examples/image-math.html#using-hue-peaks">Using Hue Peaks</a></li>
+					<li><a href="examples/image-math.html#creating-a-motion-blur-effect">Creating a Motion Blur Effect</a></li>
+					<li><a href="examples/image-math.html#simulating-long-exposure">Simulating Long Exposure</a></li>
+					<li><a href="examples/image-math.html#chroma-key-green-screen">Chroma Key (Green Screen)</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul>
-			<li><a href="/examples/display.html">Drawing on Images in SimpleCV</a>
+			<li><a href="examples/display.html">Drawing on Images in SimpleCV</a>
 				<ul>
-					<li><a href="/examples/display.html#layers">Layers</a></li>
-					<li><a href="/examples/display.html#marking-up-the-image">Marking up the Image</a></li>
-					<li><a href="/examples/display.html#text-and-fonts">Text and Fonts</a></li>
-					<li><a href="/examples/display.html#making-a-custom-display-object">Making a Custom Display Object</a></li>
+					<li><a href="examples/display.html#layers">Layers</a></li>
+					<li><a href="examples/display.html#marking-up-the-image">Marking up the Image</a></li>
+					<li><a href="examples/display.html#text-and-fonts">Text and Fonts</a></li>
+					<li><a href="examples/display.html#making-a-custom-display-object">Making a Custom Display Object</a></li>
 				</ul>
 			</li>
 		</ul>
