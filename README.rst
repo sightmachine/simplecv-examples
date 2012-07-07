@@ -3,7 +3,7 @@
 About
 ==========================================
 
-``SimpleCV'' is a open source cross platform machine vision framework in python
+''SimpleCV'' is a open source cross platform machine vision framework in python
 
 The purpose of the ``simplecv-tutorial`` subproject is to learn
 how to apply computer vision to practical situations using the

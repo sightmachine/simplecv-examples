@@ -244,9 +244,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'SimpleCV'
-epub_author = u'Ingeuitas'
-epub_publisher = u'Ingeuitas'
-epub_copyright = u'2011, Ingeuitas'
+epub_author = u'Sight Machine'
+epub_publisher = u'Sight Machine'
+epub_copyright = u'2011, Sight Machine'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
