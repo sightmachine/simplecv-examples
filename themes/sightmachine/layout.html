@@ -20,7 +20,7 @@
 {%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
 {%- if not embedded and docstitle %}
   {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
-{%- else %}<link rel="stylesheet" href="../../css/style.css" />
+{%- else %}<link rel="stylesheet" href="{{ pathto('_static/', 1)}}/css/style.css" />
   {%- set titlesuffix = "" %}
 {%- endif %}
 <!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -34,9 +34,9 @@
   <meta name="description" content="SimpleCV is an open source framework for building computer vision applications.">
   <meta name="viewport" content="width=device-width">
   <meta name="robots" content="index, follow">
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="http://simplecv.org/css/style.css" />
-  <script src="js/libs/modernizr-2.5.0.min.js"></script>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="stylesheet" href="{{ pathto('_static/', 1)}}css/style.css" />
+  <script src="{{ pathto('_static/', 1)}}js/libs/modernizr-2.5.0.min.js"></script>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
     <!-- BEGIN Header -->
@@ -45,20 +45,20 @@
             <div id="HeaderTop">
                 <div id="Logo">
                     <a href="http://www.simplecv.org/">
-											<img src="{{ pathto('_static/', 1)}}/logo.gif" width="243" height="63" alt="SimpleCV"></a>
+											<img src="{{ pathto('_static/', 1)}}/images/logo.gif" width="243" height="63" alt="SimpleCV"></a>
                 </div>
                 <ul id="Social">
                     <li>
-                        <a href="https://github.com/ingenuitas/simplecv"><img src="{{ pathto('_static/', 1)}}/github_grey.gif" height="28" width="28" alt="GitHub"></a>
+                        <a href="https://github.com/ingenuitas/simplecv"><img src="{{ pathto('_static/', 1)}}/images/github_grey.gif" height="28" width="28" alt="GitHub"></a>
                     </li>
                     <li>
-                        <a href="http://twitter.com/#!/Simple_CV"><img src="{{ pathto('_static/', 1)}}/twitter_blue.gif" height="28" width="28" alt="Twitter"></a>
+                        <a href="http://twitter.com/#!/Simple_CV"><img src="{{ pathto('_static/', 1)}}/images/twitter_blue.gif" height="28" width="28" alt="Twitter"></a>
                     </li>
                     <li>
-                        <a href="http://www.facebook.com/pages/SimpleCV/150136128401869"><img src="{{ pathto('_static/', 1)}}/facebook_blue.gif" height="28" width="28" alt="Facebook"></a>
+                        <a href="http://www.facebook.com/pages/SimpleCV/150136128401869"><img src="{{ pathto('_static/', 1)}}/images/facebook_blue.gif" height="28" width="28" alt="Facebook"></a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/115199279159361214026/posts"><img src="{{ pathto('_static/', 1)}}/google_red.gif" height="28" width="28" alt="Google+"></a>
+                        <a href="https://plus.google.com/115199279159361214026/posts"><img src="{{ pathto('_static/', 1)}}/images/google_red.gif" height="28" width="28" alt="Google+"></a>
                     </li>
                 </ul>
             </div>
@@ -115,7 +115,7 @@
         <ul id="CalloutList">
                 <li class="callout">
                     <div class="calloutLeft">
-                        <a href="http://www.simplecv.org/learn/examples.html"><img src="{{ pathto('_static/', 1)}}/gears.png" width="53" height="53" alt="Example Code"></a>
+                        <a href="http://www.simplecv.org/learn/examples.html"><img src="{{ pathto('_static/', 1)}}/images/gears.png" width="53" height="53" alt="Example Code"></a>
                         <p>Code</p>
                     </div>
                     <div class="calloutRight">
@@ -129,7 +129,7 @@
                 </li>
                 <li class="callout">
                     <div class="calloutLeft">
-                        <a href="http://www.simplecv.org/learn/tutorials.html"><img src="{{ pathto('_static/', 1)}}/book.png" width="53" height="53" alt="Tutorials"></a>
+                        <a href="http://www.simplecv.org/learn/tutorials.html"><img src="{{ pathto('_static/', 1)}}/images/book.png" width="53" height="53" alt="Tutorials"></a>
                     <p>Learn SimpleCV</p>
                     </div>
                     <div class="calloutRight">
@@ -143,7 +143,7 @@
                 </li>
                 <li class="callout">
                     <div class="calloutLeft">
-                        <a href="http://www.simplecv.org/learn/videos.html"><img src="{{ pathto('_static/', 1)}}/videos.png" width="53" height="53" alt="Video Demos"></a>
+                        <a href="http://www.simplecv.org/learn/videos.html"><img src="{{ pathto('_static/', 1)}}/images/videos.png" width="53" height="53" alt="Video Demos"></a>
                     <p>Videos</p>
                     </div>
                     <div class="calloutRight">
@@ -173,9 +173,9 @@
     <!-- BEGIN Scripts -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-    <script src="js/libs/jquery-ui-1.8.21.custom.min.js"></script>  
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+    <script src="{{ pathto('_static/', 1)}}js/libs/jquery-ui-1.8.21.custom.min.js"></script>  
+    <script src="{{ pathto('_static/', 1)}}js/plugins.js"></script>
+    <script src="{{ pathto('_static/', 1)}}js/script.js"></script>
     <script type="text/javascript">
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-23517471-3']);
