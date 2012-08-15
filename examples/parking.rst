@@ -11,7 +11,7 @@ the parking spot.
 
 Here is what the image looks like without the car in the spot:
 
-.. figure:: ../images/parking-no-car.png
+.. figure:: ../static/images/parking-no-car.png
    :scale: 100 %
    :align: center
    :alt: Photo of parking lot
@@ -20,7 +20,7 @@ Here is what the image looks like without the car in the spot:
 
 Here is what the image looks like with the car in spot:
 
-.. figure:: ../images/parking-car.png
+.. figure:: ../static/images/parking-car.png
    :scale: 100 %
    :align: center
    :alt: Photo of car in parking lot
