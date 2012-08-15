@@ -28,7 +28,7 @@ is further away.::
 
 You should get an image similiar to:
 
-.. figure:: ../images/kinect.png
+.. figure:: ../static/images/kinect.png
    :scale: 100 %
    :align: center
    :alt: Photo of SimpleCV Shell

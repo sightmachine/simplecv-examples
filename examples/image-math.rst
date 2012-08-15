@@ -16,7 +16,7 @@ we will show what happens when we add two images together.
 
 So what we did was take the original simplecv image logo that looked like
 
-.. figure:: ../images/simplecv-logo.png
+.. figure:: ../static/images/simplecv-logo.png
    :scale: 100 %
    :align: center
 
@@ -24,7 +24,7 @@ So what we did was take the original simplecv image logo that looked like
 
 and converted so it looked like this:
 
-.. figure:: ../images/image-math-add.png
+.. figure:: ../static/images/image-math-add.png
    :scale: 100 %
    :align: center
 
@@ -55,7 +55,7 @@ You should get a completely black image.
 It is also possible to perform division on images.  This is useful for
 lowering the contrast.  For instance if you use the SimpleCV logo:
 
-.. figure:: ../images/simplecv-logo.png
+.. figure:: ../static/images/simplecv-logo.png
    :scale: 100 %
    :align: center
 
@@ -70,7 +70,7 @@ And if we divide the image by 10:
 
 and you should get something that looks like:
 
-.. figure:: ../images/image-math-div.png
+.. figure:: ../static/images/image-math-div.png
    :scale: 100 %
    :align: center
 
@@ -85,14 +85,14 @@ images.
 
 
 
-.. figure:: ../images/image-math-person1.png
+.. figure:: ../static/images/image-math-person1.png
 	:scale: 100 %
 	:align: center
 
 	Previous Frame
 
 
-.. figure:: ../images/image-math-person2.png
+.. figure:: ../static/images/image-math-person2.png
 	:scale: 100 %
 	:align: center
 
@@ -100,7 +100,7 @@ images.
 
 
 
-.. figure:: ../images/image-math-person-sub.png
+.. figure:: ../static/images/image-math-person-sub.png
  :scale: 100 %
  :align: center
 
@@ -263,7 +263,7 @@ Now we want to see what that actually looks like so we will plot it.
 
 and you should see an image similiar to.
 
-	.. figure:: ../images/simplecv-histogram.png
+	.. figure:: ../static/images/simplecv-histogram.png
 
 	Histogram of SimpleCV logo in Gray
 
@@ -283,17 +283,17 @@ range from 0 to 255.
 	>>> blue_histogram = blue.histogram(255)
 
 
-	.. figure:: ../images/simplecv-histogram-red.png
+	.. figure:: ../static/images/simplecv-histogram-red.png
 
 	Histogram of SimpleCV logo Red Color Channel
 
 
-	.. figure:: ../images/simplecv-histogram-green.png
+	.. figure:: ../static/images/simplecv-histogram-green.png
 
 	Histogram of SimpleCV logo Green Color Channel
 	
 
-	.. figure:: ../images/simplecv-histogram-blue.png
+	.. figure:: ../static/images/simplecv-histogram-blue.png
 
 	Histogram of SimpleCV logo Blue Color Channel
 
@@ -307,7 +307,7 @@ and well known color space is Red-Green-Blue (RGB).  It's similiar to something
 you may have seen in art class called the color wheel.
 
 
-	.. figure:: ../images/color-wheel.png
+	.. figure:: ../static/images/color-wheel.png
 
 	Image of Color Wheel
 
@@ -343,7 +343,7 @@ As you can see the values are quite a bit different than the same image's
 histogram using the RGB color space.
 
 
-	.. figure:: ../images/simplecv-histogram-hsv.png
+	.. figure:: ../static/images/simplecv-histogram-hsv.png
 
 	Histogram of SimpleCV logo using HSV colorspace
 
@@ -404,7 +404,7 @@ In this example we will use the lenna image to find the color (or hue) peaks.::
 Hue Histogram of Lenna Picture
 
 
-	.. figure:: ../images/lenna-histogram-hue-peaks.png
+	.. figure:: ../static/images/lenna-histogram-hue-peaks.png
 
 
 
@@ -428,7 +428,7 @@ picture.  To do this just use::
 	
 Hue Distance of Lenna Image (blacker means closer to hue peak)
 
-	.. figure:: ../images/lenna-hue-distance.png
+	.. figure:: ../static/images/lenna-hue-distance.png
 
 
 
@@ -487,7 +487,7 @@ Have you ever saw the type of art people can make using long exposure?
 Typically the images look something similiar to:
 
 
-	.. figure:: ../images/light-art.png
+	.. figure:: ../static/images/light-art.png
 
 
 image taken from: http://www.flickr.com/photos/torres21/3688474968/
@@ -499,7 +499,7 @@ compressed into a single image.::
 
 	from SimpleCV import *
 
-	image_directory = "../images/exposure/"
+	image_directory = "../static/images/exposure/"
 	frames = ImageSet() #create an empty image set
 	frames.load(image_directory) #load the directory of images
 	img = Image(frames[0].size()) #create an initial empty image
@@ -526,7 +526,7 @@ run through the list of frames.
 
 When ran we should get something that looks like:
 
-.. figure:: ../images/long-exposure.png
+.. figure:: ../static/images/long-exposure.png
 
 
 
@@ -544,13 +544,13 @@ the certain colors we don't want from that image.  In our example we put
 our "anonymous" person in front of the green screen.
 
 
-.. figure:: ../images/green-screen-person.png
+.. figure:: ../static/images/green-screen-person.png
 
 
 picture taken from: http://www.flickr.com/photos/pittaya/4785149065/
 
 
-.. figure:: ../images/green-screen-wallst.png
+.. figure:: ../static/images/green-screen-wallst.png
 
 
 picture taken from: http://www.flickr.com/photos/willemvanbergen/271204700/
@@ -564,14 +564,14 @@ a mask in image math is used to hide that part of the image.  Our masked
 image should look something like:
 
 
-.. figure:: ../images/green-screen-masked.png
+.. figure:: ../static/images/green-screen-masked.png
 
 
 
 
 To finally get something that looks like:
 
-.. figure:: ../images/green-screen-result.png
+.. figure:: ../static/images/green-screen-result.png
 
 
 
@@ -583,14 +583,14 @@ The code to perform a green screen is::
 
 	#Load and show the greenscreen image
 	print "Showing Greenscreen image"
-	greenscreen = Image("../images/green-screen-person.png")
+	greenscreen = Image("../static/images/green-screen-person.png")
 	greenscreen.show()
 	time.sleep(sleep_time)
 
 
 	#load and show the background image
 	print "Showing background image"
-	background = Image("../images/green-screen-wallst.png")
+	background = Image("../static/images/green-screen-wallst.png")
 	background.show()
 	time.sleep(sleep_time)
 

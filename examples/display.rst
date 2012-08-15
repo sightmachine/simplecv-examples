@@ -31,7 +31,7 @@ cover the layer below it.  Let's look at the simplecv logo with some text
 written on it.
 
 
-.. figure:: ../images/display-layers-logo.png
+.. figure:: ../static/images/display-layers-logo.png
 
 
 Which in reality is an image with 3 layers, each layer has the text
@@ -39,7 +39,7 @@ displayed.  If we rotate the image and expand the layers you can get a
 better idea of what is really happening with image layers.
 
 
-.. figure:: ../images/display-layers-exploded.png
+.. figure:: ../static/images/display-layers-exploded.png
 
 
 
@@ -69,7 +69,7 @@ Example::
 
 You should get an image similiar to:
 
-.. figure:: ../images/display-blit.png
+.. figure:: ../static/images/display-blit.png
 
 
 NOTE: Run **help DrawingLayer** for more information.
@@ -136,7 +136,7 @@ from one image and apply it to another image.
 
 Now you should see something like:
 
-.. figure:: ../images/simplecv-logo.png
+.. figure:: ../static/images/simplecv-logo.png
 
 
 But wait, that isn't correct.  We just added the logo layer, so it should
@@ -157,7 +157,7 @@ detected in the image.
 
 Now you should get an image similiar to:
 
-.. figure:: ../images/display-lenna-facebox.png
+.. figure:: ../static/images/display-lenna-facebox.png
 
 
 
@@ -173,7 +173,7 @@ a circle.
 
 And now you should get something like:
 
-.. figure:: ../images/display-lenna-boxcircle.png
+.. figure:: ../static/images/display-lenna-boxcircle.png
 
 
 
@@ -199,7 +199,7 @@ To demostrate let's make a new circle, this time red on the simplecv logo.
 
 Now you should see something like:
 
-.. figure:: ../images/display-simplecv-circle.png
+.. figure:: ../static/images/display-simplecv-circle.png
 
 
 Now we can take that same layer and add it to the lenna image.
@@ -211,7 +211,7 @@ Now we can take that same layer and add it to the lenna image.
 
 Should now give an image simliar to:
 
-.. figure:: ../images/display-lenna-circle.png	
+.. figure:: ../static/images/display-lenna-circle.png	
 
 
 
@@ -244,7 +244,7 @@ standard lenna image.
 
 You should get something that looks like:
 
-.. figure:: ../images/display-lenna-corners.png	
+.. figure:: ../static/images/display-lenna-corners.png	
 
 
 Notice the green circles.  They are to show use where the corner algorithm
@@ -264,7 +264,7 @@ It's as easy as:
 
 And you should have something similiar to:
 
-.. figure:: ../images/display-simplecv-circle-corner.png
+.. figure:: ../static/images/display-simplecv-circle-corner.png
 
 
 
@@ -289,7 +289,7 @@ up a line.  We will randomly generate a list of points then plot them.
 
 and you should get something similiar to:
 
-.. figure:: ../images/display-simplecv-curve.png
+.. figure:: ../static/images/display-simplecv-curve.png
 
 
 The list was randomly generated, but any set of points could have been
@@ -307,7 +307,7 @@ the polygon function on the drawing layer.
 
 You should get an image similiar to:
 
-.. figure:: ../images/display-simplecv-polygon.png	
+.. figure:: ../static/images/display-simplecv-polygon.png	
 
 
 Notice how we specified the filled option.  You could manually define
@@ -339,7 +339,7 @@ in way more useful.  In fact let's code that up.
 
 and you should get an image similiar to:
 
-.. figure:: ../images/display-lenna-text-corners.png
+.. figure:: ../static/images/display-lenna-text-corners.png
 
 
 
@@ -371,7 +371,7 @@ unicode part of the string isn't required, although can be included if wanted.
 
 This should give something like:
 
-.. figure:: ../images/display-lenna-font-purisa.png
+.. figure:: ../static/images/display-lenna-font-purisa.png
 
 
 
@@ -389,7 +389,7 @@ time we'll make it partly transparent.
 
 You should get something similiar to:
 
-.. figure:: ../images/display-lenna-font-purisa.png
+.. figure:: ../static/images/display-lenna-font-purisa.png
 
 
 
@@ -460,12 +460,12 @@ the street.  To do this we use the following code::
 
 When it's okay to walk you should get an image similiar to:
 
-.. figure:: ../images/display-example-go.png
+.. figure:: ../static/images/display-example-go.png
 
 
 and when it's not okay to walk you should get an image similiar to:
 
-.. figure:: ../images/display-example-stop.png
+.. figure:: ../static/images/display-example-stop.png
 
 
 Keep in mind that lighting conditions maybe different in your environment

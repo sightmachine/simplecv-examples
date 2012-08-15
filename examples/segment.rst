@@ -10,7 +10,7 @@ on.
 Let's start with an example, we will use a picture of a face:
 
 
-.. figure:: ../images/lenna.png
+.. figure:: ../static/images/lenna.png
    :scale: 100 %
    :align: center
    :alt: lenna
@@ -27,7 +27,7 @@ case we want to **crop** out that section of the image.
 
 and you should see something like:
 
-.. figure:: ../images/lenna-cropped.png
+.. figure:: ../static/images/lenna-cropped.png
    :scale: 100 %
    :align: center
    :alt: lenna cropped
@@ -67,7 +67,7 @@ think of this as looking at an image from a perspective.
 
 And should get an image similar to:
 
-.. figure:: ../images/lenna-warped.png
+.. figure:: ../static/images/lenna-warped.png
    :scale: 100 %
    :align: center
    :alt: lenna cropped
@@ -83,7 +83,7 @@ Or if we want the negative of the image, we just invert it:
 	
 The image should be similiar to:
 
-.. figure:: ../images/lenna-inverted.png
+.. figure:: ../static/images/lenna-inverted.png
    :scale: 100 %
    :align: center
    :alt: lenna inverted
@@ -98,7 +98,7 @@ those values one way or the other.  You can think of the images as something
 like the famous ink blot test.  For instance looking at the face in this way.
 
 
-.. figure:: ../images/lenna-binarize.png
+.. figure:: ../static/images/lenna-binarize.png
    :scale: 100 %
    :align: center
    :alt: lenna binarized
@@ -115,7 +115,7 @@ pushes the color one way or another.  Let's first get our greyscale image.
 
 and you should have something like:
 
-.. figure:: ../images/lenna-grey.png
+.. figure:: ../static/images/lenna-grey.png
    :scale: 100 %
    :align: center
    :alt: lenna grey
@@ -209,14 +209,14 @@ then fine tuned with fixed.  To use them it's just:
 
 
 
-.. figure:: ../images/lenna-binarize-fixed.png
+.. figure:: ../static/images/lenna-binarize-fixed.png
 	:scale: 100 %
 	:align: center
 	
 	Fixed Thresholding
 
 
-.. figure:: ../images/lenna-binarize.png
+.. figure:: ../static/images/lenna-binarize.png
 	:scale: 100 %
 	:align: center
 	
@@ -232,7 +232,7 @@ things grow.
 	>>> dilated.show()
 
 
-.. figure:: ../images/lenna-dilate.png
+.. figure:: ../static/images/lenna-dilate.png
    :scale: 100 %
    :align: center
 
@@ -247,7 +247,7 @@ soil erosion on the ocean, that it basically wears away at the image
 
 
 
-.. figure:: ../images/lenna-eroded.png
+.. figure:: ../static/images/lenna-eroded.png
    :scale: 100 %
    :align: center
 
@@ -258,21 +258,21 @@ takes surrounding pixels into account.  As you can this is much more subtle
 and seems to be more of blending effect.
 
 
-.. figure:: ../images/lenna-morphopen.png
+.. figure:: ../static/images/lenna-morphopen.png
 	:scale: 100 %
 	:align: center
 
 	Morph Open
 	
 
-.. figure:: ../images/lenna-morphclose.png
+.. figure:: ../static/images/lenna-morphclose.png
 	:scale: 100 %
 	:align: center
 	
 	Morph Close
 
 
-.. figure:: ../images/lenna.png
+.. figure:: ../static/images/lenna.png
 	:scale: 100 %
 	:align: center
 	

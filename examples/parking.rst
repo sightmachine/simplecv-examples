@@ -39,9 +39,9 @@ First thing to do is load up the images:
 	>>> car_not_in_lot = Image("parking-no-car.png")
 
 
-:download:`Download the car image <../images/parking-car.png>`
+:download:`Download the car image <../static/images/parking-car.png>`
 
-:download:`Download the no car image <../images/parking-no-car.png>`
+:download:`Download the no car image <../static/images/parking-no-car.png>`
 
 
 
@@ -57,7 +57,7 @@ at the coordinates 470, 200, and is about 200 by 200 pixels in size.
 
 You should get something simliar to the following image:
 
-.. figure:: ../images/parking-car-only.png
+.. figure:: ../static/images/parking-car-only.png
    :scale: 100 %
    :align: center
    :alt: Photo of car
@@ -73,7 +73,7 @@ car.  Well, what we can do now is try to just extract the yellow color.
 
 
 
-.. figure:: ../images/parking-car-colordistance.png
+.. figure:: ../static/images/parking-car-colordistance.png
    :scale: 100 %
    :align: center
    :alt: Photo of car
@@ -91,7 +91,7 @@ image all we want to do is subtract that image from the car image.
 and you should now have something that looks like:
 
 
-.. figure:: ../images/parking-car-yellow.png
+.. figure:: ../static/images/parking-car-yellow.png
    :scale: 100 %
    :align: center
    :alt: Photo of car
@@ -115,7 +115,7 @@ way to determine if the car is parked in the lot or not.
 
 Which will give an image similiar to:
 
-.. figure:: ../images/parking-no-car-cropped.png
+.. figure:: ../static/images/parking-no-car-cropped.png
    :scale: 100 %
    :align: center
    :alt: Photo of empty parking spot
@@ -130,7 +130,7 @@ Then we try to do the color extraction:
 
 and should get an image similiar to:
 
-.. figure:: ../images/parking-no-car-colordiff.png
+.. figure:: ../static/images/parking-no-car-colordiff.png
    :scale: 100 %
    :align: center
    :alt: Photo of empty parking spot with color difference
