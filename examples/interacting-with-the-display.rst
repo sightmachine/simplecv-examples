@@ -1,6 +1,6 @@
 Interacting with the Display
 ==========================================
-This actually isn't going to take much more world than the standard hello
+This actually isn't going to take much more work than the standard hello
 world example.  Except we are introduction a new concept or object type.
 
 The Display.
