@@ -82,7 +82,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{listings} %syntax highlighting?
-%\usepackage{minted}
+\usepackage{minted}
 %\usepackage{subfigure}
 
 %----------------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ SightMachine \\ % Your institution for the title page
 \frametitle{How do I SimpleCV?}
 
 \begin{figure}
-  \includegraphics[width=0.9\linewidth]{howdoi.jpg}
+  \includegraphics[width=0.7\linewidth]{howdoi.jpg}
 \end{figure}
 
 \end{frame}
@@ -399,12 +399,20 @@ $E = mc^2$
 \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
 \frametitle{Verbatim}
 \begin{example}[Theorem Slide Code]
-\begin{lstlisting}[language=python]
-for i in list:
-    doStuff()
-    pass
+\begin{minted}{python}
 
-\end{lstlisting}
+  def doStuff(a,b,c=[1,2,3]):
+      a = 5
+      b = a 
+      c.reverse()
+  
+  derp = [1,2,3,4]
+  for i in derp:
+     doStuff()
+     pass
+  print derp
+
+\end{minted}
 \end{example}
 \end{frame}
 
