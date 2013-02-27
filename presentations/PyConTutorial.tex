@@ -86,7 +86,7 @@
 %\usepackage{subfigure}
 
 %----------------------------------------------------------------------------------------
-%	TITLE PAGE
+\graphicspath{ {./images/} }%	TITLE PAGE
 %----------------------------------------------------------------------------------------
 % \definecolor{mygreen}{cmyk}{0.82,0.11,1,0.25}
 % \setbeamertemplate{blocks}[rounded][shadow=false]
@@ -367,7 +367,6 @@ Python Files  & Deployment Code \\
 % ------------------------------------------------
 \begin{frame}
 \frametitle{How do I run Hello World?}
-
 \begin{itemize}
 \item Run the py file with $python$ $HelloWorld.py$ in the command.
 \item Close it by pressing $esc$ or $ctrl-c$
@@ -378,21 +377,184 @@ Python Files  & Deployment Code \\
 \end{frame}
 
 % ------------------------------------------------
+\begin{frame}
+\frametitle{The SimpleCV Shell - Custom iPython REPL}
+Sometimes you just want to test an idea without writing a full
+script. For this reason we created the SimpleCV shell, which is a
+custom ipython instance. The SimpleCV shell will allow you to:
+\begin{itemize}
+\item Test your ideas in a REPL similar to Matlab.
+\item Access the SimpleCV documentation. 
+\item Import modules that you are working with to test.
+\item Run through an interactive tutorial. 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\subsection{SimpleCV Shell}
 \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Let's repeat it in SimpleCV  iPython REPL}
-\begin{example}[In the SimpleCV shell]
+\frametitle{Starting the SimpleCV Shell}
+In OSX and Linux just type $simplecv$ at the command line. On Windows
+you just click on the SimpleCV icon. 
+\begin{example}[Shell Basics]
 \begin{minted}[fontsize=\tiny]{python}
-SimpleCV:1> img = Image('lenna')
-SimpleCV:2> img.show()
-SimpleCV:2: <SimpleCV.Display Object resolution:((512, 512)), 
-             Image Resolution: (512, 512) 
-             at memory location: (0x594a5f0)>
-SimpleCV:3> 
++-----------------------------------------------------------+
+ SimpleCV 1.3.0 [interactive shell] - http://simplecv.org
++-----------------------------------------------------------+
+Commands: 
+	"exit()" or press "Ctrl+ D" to exit the shell
+	"clear" to clear the shell screen
+	"tutorial" to begin the SimpleCV interactive tutorial
+	"example" gives a list of examples you can run
+	"forums" will launch a web browser for the help forums
+	"walkthrough" will launch a web browser with a walkthrough
+Usage:
+	dot complete works to show library
+	for example: Image().save("/tmp/test.jpg") will dot complete
+	just by touching TAB after typing Image().
+Documentation:
+	help(Image), ?Image, Image?, or Image()? all do the same
+	"docs" will launch webbrowser showing documentation
 \end{minted}
 \end{example}
 \end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{SimpleCV Shell Like a Boss}
+\begin{figure}
+  \includegraphics[width=0.3\linewidth]{protip.jpg}
+\end{figure}
+\begin{itemize}
+\item Putting a ? in front of a class or method will give you
+  documentation. The ``/'' key will let you search.
+\item iPython has tab completion for methods.
+\item Up arrow will give you previous commands. 
+\item \%paste will let you paste formatted code. 
+\item Other cool stuff can be found by googling iPython magic commands.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Let's repeat Hello World  in SimpleCV  Shell}
+\begin{example}[In the SimpleCV shell]
+\begin{minted}[fontsize=\tiny]{python}
+SimpleCV:1> cam = Camera()
+SimpleCV:2> disp = Display((640,480))
+SimpleCV:3> while disp.isNotDone():
+       ...:     img = cam.getImage().edges()
+       ...:     img.drawText("Hello World!",40,40,fontsize=60)
+       ...:     img.save(disp)
+       ...:     
+SimpleCV:4> exit
+\end{minted}
+\end{example}
+\begin{itemize}
+\item Just push return after each line.
+\item iPython will do tabbing in the while loop.
+\item $esc$ to quit or $ctrl-c$.
+\item type ``exit'' to quit.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Yes, it really is that simple.}
+\begin{figure}
+  \includegraphics[width=0.9\linewidth]{HelloWorld2.png}
+\end{figure}
+\end{frame}
+% ------------------------------------------------
+\subsection{iPython Web Notebook}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Why use iPython Web Notebooks}
+\begin{figure}
+  \includegraphics[width=0.7\linewidth]{venn.png}
+\end{figure}
+\begin{itemize}
+\item Web notebooks give you the best features of an IDE and a REPL.
+\item You can edit chunks of code, and then execute them in series.
+\item iPython is still v. 0.1.4 but it is getting good fast.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{How do I use the notebook?}
+\begin{figure}
+  \includegraphics[width=0.5\linewidth]{startingipython.png}
+\end{figure}
+\begin{itemize}
+\item From the shell just type $simplecv$ $notebook$.
+\item You will get to a dashboard to create a new notebook.
+\item By default notebooks are in the path where you start ipython.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{How do I use the notebook?}
+\begin{figure}
+  \includegraphics[width=0.7\linewidth]{ipythonHelp.png}
+\end{figure}
+\begin{itemize}
+\item Everything we mentioned about the SimpleCV shell still holds.
+\item Magic commands, inline documentation, etc. still work.
+\item $enter$ starts a new line.
+\item $ctrl-enter$ executes a line.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Caveats about  iPython Web Notebooks}
+\begin{figure}
+  \includegraphics[width=0.2\linewidth]{warning.jpg}
+\end{figure}
+\begin{itemize}
+\item iPython Web Notebooks are still version 0.1.4 
+\item \textbf{There is no auto-save. Get in the $ctrl-s$ save habit.}
+\item If you edit a module you import you must restart the core. 
+\item Minimal editing support. No find/replace.
+\item The core can sometimes crash on large images.
+\item The notebooks hold on to data by default. This can fill up your
+  version control system fast. Try the download as python command from
+  the gui. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+% ------------------------------------------------
+\section{Image Basics}
+% ------------------------------------------------
+% ------------------------------------------------
 % ------------------------------------------------
 
+\begin{frame}
+\frametitle{Image Basics}
+\begin{itemize}
+\item Most functionality lives in the image class.
+\item Image takes a single parameter, the file name.
+\item Takes everything you would like. PNG, BMP, JPG, many more.
+\item Can also take a URL to an image. 
+\item A couple of built-ins like lenna and simplecv.
+\item $img.show()$ will display the image. 
+\end{itemize}
+\end{frame}
+\begin{frame}
+% ------------------------------------------------
+\frametitle{Image Basics}
+\begin{itemize}
+\item You can get the image file name using $img.filename$
+\item Images can also come from appropriately shaped numpy arrays.
+\item PIL and OpenCV images can also be passed into the image.
+\item Can also take a URL to an image. 
+\item The \alert<+>{img.getEXIFData()} command can show jpg EXIF data.
+\end{itemize}
+\end{frame}
+
+
+% ------------------------------------------------
+% ------------------------------------------------
+% ------------------------------------------------
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
@@ -445,9 +607,6 @@ SimpleCV:3>
   \end{columns}
 \end{frame}
 
-% ------------------------------------------------
-\section{Second Section}
-%------------------------------------------------
 
 \begin{frame}
 \frametitle{Table}
