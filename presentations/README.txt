@@ -31,8 +31,7 @@ Boxes)
 Pasta Minted)
 - [http://tex.stackexchange.com/questions/83204/how-can-i-make-source-code-included-with-minted-copyable/83218#83218](More
 on minted)
-- [http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/minted/minted.pdf]
-(More Minted)
+- [More Minted] (http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/minted/minted.pdf)
 - [http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/screenshot_001/](AucTex)
 -
 [http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions](Figures
