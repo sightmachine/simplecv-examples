@@ -305,7 +305,7 @@ SightMachine \\ % Your institution for the title page
 \frametitle{How do I SimpleCV?}
 
 \begin{figure}
-  \includegraphics[width=0.7\linewidth]{howdoi.jpg}
+  \includegraphics[width=0.6\linewidth]{howdoi.jpg}
 \end{figure}
 
 \end{frame}
@@ -315,7 +315,7 @@ SightMachine \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Where do I write my code?}
 
-\large{So \em{how do I SimpleCV?}}
+\large{So how do I SimpleCV?}
 \begin{itemize}
 \item In a python file, just like any other library.
 \item In a command line REPL like iPython.
@@ -334,34 +334,56 @@ for different parts of our workflow.
 \begin{table}
 \begin{tabular}{l l }
 \toprule
-\textbf{Tool} & \textbf{Use} \\
+\textbf{Tool} & \textbf{Uses} \\
 \midrule
 iPython REPL & Prototypes, Sanity Checks, Etc \\
 iPython Web Notebook & Testing and Development \\
 Python Files  & Deployment Code \\
 \bottomrule
 \end{tabular}
-\caption{Table caption}
+\caption{SimpleCV Workflow}
 \end{table}
 \end{frame}
 
 
 % ------------------------------------------------
-\begin{frame}
-\frametitle{In a Python File.}
 
-\large{}
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{SimpleCV Hello World as a Script}
+\begin{example}[HelloWorld.py]
+ \inputminted[linenos=true, tabsize=4,
+ fontsize=\small]{python}{HelloWorld.py}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{How do I run Hello World?}
+
 \begin{itemize}
-\item In a python file, just like any other library.
-\item In a command line REPL like iPython.
-\item In the browser using iPython Notebooks (we'll use this today).
+\item Run the py file with $python$ $HelloWorld.py$ in the command.
+\item Close it by pressing $esc$ or $ctrl-c$
 \end{itemize}
+\begin{figure}
+  \includegraphics[width=0.9\linewidth]{HelloWorld1.png}
+\end{figure}
 \end{frame}
 
- 
-
-
 % ------------------------------------------------
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Let's repeat it in SimpleCV  iPython REPL}
+\begin{example}[In the SimpleCV shell]
+\begin{minted}[fontsize=\tiny]{python}
+SimpleCV:1> img = Image('lenna')
+SimpleCV:2> img.show()
+SimpleCV:2: <SimpleCV.Display Object resolution:((512, 512)), 
+             Image Resolution: (512, 512) 
+             at memory location: (0x594a5f0)>
+SimpleCV:3> 
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
