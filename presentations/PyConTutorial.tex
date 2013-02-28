@@ -523,25 +523,14 @@ SimpleCV:4> exit
 % ------------------------------------------------
 % ------------------------------------------------
 % ------------------------------------------------
-\section{Image Basics}
-% ------------------------------------------------
-% ------------------------------------------------
-% ------------------------------------------------
+ \section{Image Basics}
+% % ------------------------------------------------
+% % ------------------------------------------------
+% % ------------------------------------------------
 
+% % ------------------------------------------------
 \begin{frame}
-\frametitle{Image Basics}
-\begin{itemize}
-\item Most functionality lives in the image class.
-\item Image takes a single parameter, the file name.
-\item Takes everything you would like. PNG, BMP, JPG, many more.
-\item Can also take a URL to an image. 
-\item A couple of built-ins like lenna and simplecv.
-\item $img.show()$ will display the image. 
-\end{itemize}
-\end{frame}
-\begin{frame}
-% ------------------------------------------------
-\frametitle{Image Basics}
+\frametitle{Image Loading Basics II}
 \begin{itemize}
 \item You can get the image file name using $img.filename$
 \item Images can also come from appropriately shaped numpy arrays.
@@ -551,9 +540,219 @@ SimpleCV:4> exit
 \end{itemize}
 \end{frame}
 
+% % ------------------------------------------------
+\begin{frame}
+\frametitle{Saving an Image}
+\begin{itemize}
+\item The \alert<+>{img.save()} command is used to save images.
+\item You can save as just about any format, PNG, JPG, WebP, etc.
+\item Calling save with no parameters saves it to temp directory.
+\item Using the params flag you can set compression, e.g. set
+  compression quality. 
+\end{itemize}
+\end{frame}
+
+% % %------------------------------------------------
+\begin{frame}
+\frametitle{Using a USB Camera}
+\begin{itemize}
+\item Most usb cameras use the \alert<+>{Camera} class. 
+\item The camera class takes a camera index, \emph{usually} this is the
+   order cameras are plugged into the computer.
+\item The camera also has properties that you can get and set, or use a propmap dictionary to set. 
+ \item \emph{Support for camera properties is vendor specific and spotty at
+   best.} 
+ \item Cameras also have a \emph{threaded} parameter. Set this to false
+ to run multiple cameras. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\frametitle{Using a USB Camera II}
+\begin{frame}
+\begin{itemize}
+\item \alert<+>{Camera.getImage()} will return the current image. 
+\item \alert<+>{Camera.getAllProperties()} will return the cameras properties.
+\item \alert<+>{Camera.getProperty() and Camera.setProperty()} may let
+  you set properties. \emph{This is highly vendor dependent and usually poorly documented.}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Briefly: Other Cameras}
+\begin{itemize}
+\item Kinect - Depth Camera
+\begin{itemize}
+\item Uses freenect drivers, not the OpneNI drivers.
+\item \alert<+>{Kinect.getImage and Kinect.getDepth }
+\item Note that these aren't well calibrated together.
+\end{itemize}
+\item JpegStreamReader - IP Cameras
+\begin{itemize}
+\item Give it a url to camera's web feed, and scrape images.
+\item Getting the URL straight can be tricky. 
+\end{itemize}
+\item Virtual Camera
+\begin{itemize}
+\item A virtual camera that pulls from a directory full of images, or video.
+\item Interface to video files for processing.
+\end{itemize}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Briefly: Other Cameras}
+\begin{itemize}
+\item Document Scanners
+\begin{itemize}
+\item SANE compatible devices.
+\item Allow you to set resolution and ROI. 
+\end{itemize}
+\item Digital Camera
+\begin{itemize}
+\item Uses Piggy Photo Library
+\item Works with most DSLRs and point and shoots.
+\end{itemize}
+\item AVT Camera
+\begin{itemize}
+\item Professional digital imaging cameras with interchangeable optics.
+\item Fine grain control of camera parameters. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Image Sets}
+ImageSets are lists of images. They are great for aggregating datasets.
+\begin{itemize}
+\item By default load all image files in a directory.
+\item Can iterate over the list using list comps or for loops.
+\item Using the BeautifulSoup library can download sets from google.
+\item Can save image sets to directories, or animated gifs!
+\item The show command works just like on image class.
+\item Can apply averages to images.
+\item More coming soon.
+\end{itemize}
+\end{frame}
 
 % ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{ImageSet Example}
+\begin{example}[Image Sets]
+\begin{minted}[]{python}
+mySet = ImageSet()
+mySet.download('cats') # download cats
+mySet.show() # show them to us
+avgCat = mySet.average() # get the avg cat
+avgCat.show() # show the avg cat
+mySet[3].show() # show the third kitty
+resized = mySet.standardize(128,64)
+resized.save('cat.gif')
+mySet.save('cat.gif') # save the cats as a gif
+for cat in mySet: # iterate over the set of cats
+    cat.binarize().show()
+\end{minted}
+\end{example}
+\end{frame}
 % ------------------------------------------------
+\section{Really Basic Operations}
+\subsection{Getting at the Pixels}
+\begin{frame}
+\frametitle{Getting at a pixel}
+\begin{figure}
+  \includegraphics[width=0.5\linewidth]{pixellocations.png}
+\end{figure}
+\begin{itemize}
+\item SimpleCV treats images as two dimensional arrays of color
+value tuples. 
+\item Each tuple holds three values (Red,Green,Blue).
+\item Pixels start in the top left corner at zero. 
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Pixel Manipulation Example}
+\begin{example}[Getting at those pixels]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('helloworld.jpg')
+c = img[0,0] # get a pixel
+print c
+print img.getPixel(0,0) # get another way
+test = img[200:300,200:300]
+test.show() # the result is an image
+test = img[50:,:]
+test.show() # again using slice
+test = img[0:5,0:5]
+print test.getNumpy() # get the raw values
+img[0:105,0:105] = Color.RED # WRONG!
+img.show() # does not work 
+test = img.getNumpy() #RIGHT!
+test[0:105,0:105] = Color.RED
+img2 = Image(test)
+img2.show()
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Getting at a pixel}
+\begin{itemize}
+\item Images are read only. To write a pixel directly you need create a new
+  image. Usually this happens in numpy
+\item Images support the list slice notation but return images.
+\item To get at the raw pixel values use \textbf{getNumpy()} and \textbf{getGrayNumpy()} 
+\item Numpy values can be accessed using slices the first parameter is
+  x, the second is y,  and the third is the channel in RGB order. For
+  example $npimg[x][y][0]$. 
+\item The \textbf{Image.width} and \textbf{Image.height} member
+  variables can help you find your way. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Another Pixel Manipulation Example}
+\begin{example}[Fancy Manipulations]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('helloworld.jpg')
+gray = img.getGrayNumpy() # get the gray scale np image
+colored = img.getNumpy()  # and the colored one
+print (img.width,img.height) #tell us the image size
+colored[0:20,:] = Color.BLUE # set the left side to blue
+colored[:,0:20] = Color.GREEN # set the top row to green
+colored[40:80,40:80]      \quad
+     \includegraphics[width=0.4\linewidth]{JanEricBook.jpg}
+= Color.YELLOW # make a yellow square
+x,y = np.where(gray>230) # find bright pixels > 230
+for xf,yf in zip(x,y): # for each of those
+    colored[xf][yf] = Color.RED #make them red
+img2 = Image(colored) # create an image
+img2.show() # and show it
+# now set the whole blue channel to 255
+colored[:,:,2] = 255 
+# and show us that
+img3 = Image(colored)
+img3.show()
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Getting at a pixel}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{helloworld.jpg}
+     \quad
+     \includegraphics[width=0.3\linewidth]{ColorToast.png}
+     \quad
+     \includegraphics[width=0.3\linewidth]{ColorToast2.png}
+     \caption{Not bad for less than 20 lines of code.}
+ \end{figure}
+
+\end{frame}
+% ------------------------------------------------
+
+
+\subsection{Basic Manipulations}
+
 % ------------------------------------------------
 \begin{frame}
   \frametitle{Paragraphs of Text}
