@@ -527,8 +527,6 @@ SimpleCV:4> exit
 % % ------------------------------------------------
 % % ------------------------------------------------
 % % ------------------------------------------------
-
-% % ------------------------------------------------
 \begin{frame}
 \frametitle{Image Loading Basics II}
 \begin{itemize}
@@ -749,11 +747,126 @@ img3.show()
 
 \end{frame}
 % ------------------------------------------------
-
-
-\subsection{Basic Manipulations}
-
+\section{Basic Manipulations}
 % ------------------------------------------------
+\begin{frame}
+\frametitle{Cropping, Scaling, Rotating, etc}
+It is helpful to think of some image processing like using an image
+editor, like GIMP, paint, or that other one Adobe makes. Here are a
+few basic image operations you can do in SimpleCV. 
+\begin{itemize}
+\item \textbf{Image.crop}. Does what it says on the tin. We refer to
+  crop areas by there top left corner x and y plus the width height.
+\item \textbf{Image.scale} scales the image proportionally while
+  \textbf{Image.resize} resizes the image to the desired size. 
+  \begin{itemize}
+    \item \textbf{Image.resize} is smart, if you tell it a width or
+      height it will infer the other parameter from the aspect ratio.
+    \item \textbf{Image.scale} uses a proportionality. So passing it
+      value of two will double the image size. Make sure to check out
+      the interpolation method.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Rotating}
+\begin{itemize}
+  \item \textbf{Image.rotate} takes and angle in degrees.
+  \item Rotate has a parameter called fixed. If fixed
+        is set to false, SimpleCV will create a new image that matches
+        the rotated image size. Otherwise we stick the rotated image
+        in data in a similarly sized canvas. 
+  \item It is possible to pick the x,y position of the rotation. The
+    default is the center of the image.
+  \item You can also scale an image while rotating.
+  \item In a pinch you can use \textbf{Image.flipHorizontal} and
+    \textbf{Image.flipVertical}.
+   \item Be aware \textbf{FLIPPING != ROTATION}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Blit}
+The \textbf{Image.blit} function gets its name from the old computer graphics term ``bit block image
+transfer''. Really it means just copy and paste another image onto
+another image and return the result.
+\begin{itemize}
+\item Blit takes in another image and a position where you want to put
+  it.
+\item That position can be negative with respect to the destination
+  image. For example (-10,-10) would put the source image over the top
+  left of the destination image.
+\item You can toss blit a binary mask, an alpha value (that is
+  transparency) or a an alpha mask (a grayscale image that has an
+  alpha mask per pixel).
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Let's play!}
+\begin{example}[Basic Manipulations]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('tricky.jpg')
+face = img.crop(150,190,309-150,333-190)
+img.show() # show the source
+face.show() # show the cropped image
+face.rotate(45).show() # basic rotation
+face.rotate(45,fixed=False).show()
+face.scale(0.5).show()
+face.scale(width=int(face.width/2.0)) # basic scaling
+face.flipHorizontal().show() # flipping
+test1 = img.blit(face.flipHorizontal(),pos=(150,190))
+test1.show() # now let's have fun with blitting
+test2 = img.blit(face.flipHorizontal(),pos=(150,190),alpha=0.5)
+test2.show() 
+mask = Image((face.width,face.height))
+# Here we are just drawing a white circle on a black background
+mask.drawCircle((face.width/2,face.height/2),70,color=Color.WHITE, thickness=-1)
+mask = mask.applyLayers()
+mask.show()
+test3 = img.blit(face.flipHorizontal(),pos=(150,190),mask=mask)
+test3.show()
+face.binarize().blur().show()
+test4 = img.blit(face.flipHorizontal(),pos=(150,190),alphaMask=face.binarize().blur())
+test4.show()
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{The Blit Progression of President Dick Nixon}
+ \begin{figure}
+     \includegraphics[width=0.2\linewidth]{tricky1.png}
+     \quad
+     \includegraphics[width=0.2\linewidth]{tricky2.png}
+     \quad
+     \includegraphics[width=0.2\linewidth]{tricky3.png}
+     \quad
+     \includegraphics[width=0.2\linewidth]{tricky4.png}
+     \quad
+     \caption{Various blitting}
+ \end{figure}
+\large{Can you our subject a smaller face or a slightly slanted face? }
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{A few more basics}
+\begin{itemize}
+  \item \textbf{Image.blur} - A basic Gaussian blur. 
+  \item \textbf{Image.smooth} - A variety of smoothing filters. Some
+    good for removing camera noise. 
+  \item \textbf{Image.toGray} - Convert a color image to a gray scale
+    image.
+  \item \textbf{Image.threshold} - Take an image and set all off the
+    pixels that have a grayscale value above the threshold to white,
+    and everything else to black.
+ \item \textbf{Image.invert} - Swap the lightest and darkest values,
+   like a photo negative. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
