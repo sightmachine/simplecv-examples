@@ -96,7 +96,7 @@
 bg= gray!30}
 \setbeamercolor*{block body example}{fg= black,
 bg= gray!15}
-\graphicspath{ {./images/}{./} }
+\graphicspath{ {./images/}{./}{./timgs/} }
 
 \title[How do I SimpleCV?]{A Crash Course on SimpleCV} % The short title appears at the bottom of every slide, the full title is only on the title page
 
@@ -866,6 +866,91 @@ test4.show()
 \end{itemize}
 \end{frame}
 % ------------------------------------------------
+
+\section{Let's talk about black, white, and color}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Let's Talk about color, color spaces, and much more.}
+ \begin{figure}
+     \includegraphics[width=0.2\linewidth]{parrot.jpg}
+     \quad
+     \includegraphics[width=0.3\linewidth]{penguins.jpg}
+ \end{figure}
+Computer vision is all about moving from a vast amount of
+information to small result as quickly as possible. Working in
+grayscale, or black and white images can speed things up
+dramatically. 
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Color is surprisingly hard to represent}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{visiblelight.png}
+     \quad
+     \includegraphics[width=0.3\linewidth]{theeye.png}
+     \quad
+     \includegraphics[width=0.3\linewidth]{RGB_cube_color.jpg}
+ \end{figure}
+We start with visible light, which bounces around, does funky stuff, and then enters our
+eye or camera. Our eyes and cameras have a response function that does
+an imperfect job of sampling the parts of the spectrum. We then take
+those samples and try to map them onto finite color space like RGB. 
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+\frametitle{An illustration of why color is hard.}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{flower.jpg}%
+     \quad
+     \includegraphics[width=0.5\linewidth]{visiblelight.png}%
+ \end{figure}
+Point to where this magenta flower lives on the visible light spectrum.
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{MIND BLOWN!}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{mindblown.jpg}
+ \end{figure}
+Magenta doesn't exist in nature. It is trick our brains and cameras
+play on us. It exists because we sample the spectrum and try to
+recombine the samples. We wrap the visible spectrum around. 
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{To manage this problem we use color spaces.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{hsv.png}
+ \end{figure}
+\begin{itemize}
+\item To deal with this problem we use color spaces. 
+\item Most images are in the RGB, BGR, or gray scale color spaces.
+\item Sometimes it is helpful to use the hue, saturation, and value (HSV)
+color space. In HSV you have a 
+\begin{itemize}
+\item Hue, or pure color (from 0 to 180) 
+\item Saturation that tells us how far from white our color is
+\item Value that tells us how dark the color is.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+% ------------------------------------------------
+\begin{frame}
+\frametitle{How do I work with Color in SimpleCV}
+\begin{itemize}
+\item The \textbf{Image.toHSV()} function will convert your image, while the
+\textbf{Image.toBGR()} function will return it back to the original.
+\item We also have \textbf{Image.toGray()} and \textbf{Image.toRGB()}
+  and whole bunch more. 
+
+\end{itemize}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{Paragraphs of Text}
