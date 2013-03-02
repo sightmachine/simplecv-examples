@@ -485,7 +485,10 @@ SimpleCV:4> exit
   \includegraphics[width=0.5\linewidth]{startingipython.png}
 \end{figure}
 \begin{itemize}
-\item From the shell just type $simplecv$ $notebook$.
+\item From the shell just type $simplecv$ $notebook$ $--pylab$
+  $inline$.
+\item The --pylab inline is optional but it pulls in matplotlib which
+  is handy.
 \item You will get to a dashboard to create a new notebook.
 \item By default notebooks are in the path where you start ipython.
 \end{itemize}
@@ -682,8 +685,8 @@ test = img[50:,:]
 test.show() # again using slice
 test = img[0:5,0:5]
 print test.getNumpy() # get the raw values
-img[0:105,0:105] = Color.RED # WRONG!
-img.show() # does not work 
+img[0:105,0:105] = Color.RED 
+img.show() # Another way
 test = img.getNumpy() #RIGHT!
 test[0:105,0:105] = Color.RED
 img2 = Image(test)
@@ -946,10 +949,52 @@ color space. In HSV you have a
 \textbf{Image.toBGR()} function will return it back to the original.
 \item We also have \textbf{Image.toGray()} and \textbf{Image.toRGB()}
   and whole bunch more. 
-
+\item The \textbf{Image.huePeaks} function can help you guess what
+  hues are in your image.
+\item The \textbf{Image.hueDistance} function can then help you look
+  for stuff that is the hue you want. 
+\item The \textbf{Image.hueHistogram} function will let you visualize
+  the results. 
 \end{itemize}
 \end{frame}
-
+\begin{frame}[fragile] 
+% ------------------------------------------------
+\frametitle{Finding colors}
+\begin{example}[Using Hue]
+\begin{minted}[fontsize=\tiny]{python}
+import pylab as plt # import pylab for plotting
+img = Image("flower.jpg")
+img.show()
+peaks = img.huePeaks() # find the hues
+print peaks
+hist = img.hueHistogram() # get the histogram too
+plt.plot(hist) # plot the histogram
+plt.draw() # show it to us
+# show how far away from the hue we are black is closer
+# white is farther away from our hue.
+hdist = img.hueDistance(peaks[3][0]) 
+# create a black and white version of our flower
+binary = img.hueDistance(peaks[3][0]).invert().threshold(220)
+hdist.show()
+binary.show()
+hdist.save('hflower.png')
+binary.save('bflower.png')
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Color Finding Results}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{flower.jpg}
+     \quad
+     \includegraphics[width=0.3\linewidth]{hflower.png}
+     \quad
+     \includegraphics[width=0.3\linewidth]{bflower.png}
+     \quad
+     \caption{Finding an object from colors}
+ \end{figure}
+\end{frame}
 
 
 \begin{frame}
