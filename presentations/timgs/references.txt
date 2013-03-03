@@ -32,3 +32,9 @@ http://en.wikipedia.org/wiki/File:HSV_color_solid_cylinder_alpha_lowgamma.png
 
 morphology images modified from
 http://computer-vision-talks.com/2011/02/introduction-to-morphology-operations-on-images/
+
+waldo.jpg
+http://www.flickr.com/photos/ankur479/4715351256/sizes/m/in/photostream/
+
+cookies.jpg
+http://www.flickr.com/photos/e_monk/4190156499/sizes/z/in/photostream/
