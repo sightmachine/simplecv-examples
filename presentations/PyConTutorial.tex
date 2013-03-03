@@ -1156,7 +1156,65 @@ There are other techniques we can use to fix things.
   \end{itemize}
 \end{itemize}
 \end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Advanced Binarization}
+\begin{example}[Get a binary representation of the parrot.]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('parrot.jpg')
+img.show()
+binary = img.binarize().invert() # automatic
+binary.show() # good but we're missing part of the beak
+binary2 = img.hueDistance(80).invert().threshold(190)
+binary2.show() # missing a different part of the beak
+filled = binary.floodFill((0,img.height-1),color=Color.BLACK)
+filled.show() # get rid of the branch in the corner
+better = filled.logicalOR(binary2)
+better.show() # combine the two.
+eroded = better.erode()
+eroded.show() # get rid of specs.
+dilated = better.dilate()
+dilated.show() # get rid of holes
+watershed = img.watershed(dilated)
+watershed.show() # let's see what this can do
+\end{minted}
+\end{example}
+\end{frame}
 
+%binary.save('mbparrot.png')
+%binary2.save('mb2parrot.png')
+%filled.save('filledparrot.png')
+%better.save('betterparrot.png')
+%eroded.save('erodeparrot.png')
+%dilated.save('dilatedparrot.png')
+%watershed.save('watershedparrot.png')
+
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Parrot Pipeline}
+ \begin{figure}
+     \includegraphics[width=0.15\linewidth]{parrot.jpg}
+     \quad
+     \includegraphics[width=0.15\linewidth]{mbparrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{mb2parrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{filledparrot.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.15\linewidth]{betterparrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{erodeparrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{dilatedparrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{watershedparrot.png}
+ \end{figure}
+
+\tiny{Or pipeline, left to right, top to bottom}
+\end{frame}
+
+% ------------------------------------------------
 
 \begin{frame}
   \frametitle{Paragraphs of Text}
