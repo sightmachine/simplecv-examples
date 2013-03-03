@@ -957,8 +957,8 @@ color space. In HSV you have a
   the results. 
 \end{itemize}
 \end{frame}
-\begin{frame}[fragile] 
 % ------------------------------------------------
+\begin{frame}[fragile] 
 \frametitle{Finding colors}
 \begin{example}[Using Hue]
 \begin{minted}[fontsize=\tiny]{python}
@@ -994,6 +994,167 @@ binary.save('bflower.png')
      \quad
      \caption{Finding an object from colors}
  \end{figure}
+\end{frame}
+
+% -----------------------------------------------
+\begin{frame}
+\frametitle{How do I work \textbf{without}  Color in SimpleCV}
+Color is not so important when all we care about are light or dark
+things. 
+\begin{itemize}
+\item We can use the \textbf{Image.toGray} method to create gray
+  images. Gray pixels only go from values of 0 to 255
+\item Sometimes it is helpful to adjust the contrast for us to find objects.
+  \begin{itemize}
+    \item If the gray values in our image only go from say [50,150] we
+      can us the \textbf{Image.equalize} method to interpolate them to
+      values between [0,255].
+    \item Other times we want to enhance a certain space of the gray
+      spectrum. We can use the \textbf{Image.stretch} function. 
+    \end{itemize}
+\item \textbf{Image.histogram} can help us figure out what gray values
+  are present.
+\item \textbf{Image.maxVal} and \textbf{Image.minVal} can help us
+  determine the range of intensities and where to set our thresholds.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Shades of Gray}
+\begin{example}[Modify Grayscale Images]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('penguins.jpg')
+img = img.toGray()
+eImg = img.crop(180,400,100,100)
+img.drawRectangle(180,400,100,100)
+plt.plot(eImg.histogram(), '-r')
+plt.plot(eImg.equalize().histogram(),'-b')
+plt.show()
+img.show()
+eImg.show()
+eImg.equalize().show()
+max = eImg.maxValue()
+min = eImg.minValue()
+print [max, min]
+streched = img.stretch(min,max)
+streched.show()
+\end{minted}
+\end{example}
+\end{frame}
+% -----------------------------------------------
+\begin{frame}
+\frametitle{Seeing in Black and White - Binary Images}
+\small{Very often we want to just isolate a certain area in an image and mark
+it. To do this we use binary images, also called masks. The general
+process of creating a binary image is called segmentation. Often we call
+the white areas foreground and the black areas background. }
+\begin{itemize}
+\item We can use the\textbf{Image.threshold} method to create a binary
+  image. 
+  \begin{itemize}
+  \item Threshold will set gray values below the threshold to black
+    and areas above the threshold to white.
+  \item SimpleCV will automatically convert color images to grayscale
+    images for a threshold.
+  \end{itemize}
+\item The \textbf{Image.binarize} method will also create a binary
+  image.
+   \begin{itemize}
+   \item Binarize uses Otsu's method which changes the threshold
+     automatically to improve performance. 
+   \item There are a lot of parameters to tweak so checkout the
+     documentation.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Basic Binarization}
+\begin{example}[Let's find the parrot]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('parrot.jpg')
+b = img.binarize().invert() # automatic
+t1 = img.threshold(50) # too low
+t2 = img.threshold(128) # okay
+t3 = img.threshold(200) # too high
+b.show()
+t1.show()
+t2.show()
+t3.show()
+b.save('bparrot.png')
+t1.save('t1parrot.png')
+t2.save('t2parrot.png')
+t2.save('t3parrot.png')
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Binzarization Results}
+ \begin{figure}
+     \includegraphics[width=0.15\linewidth]{parrot.jpg}
+     \quad
+     \includegraphics[width=0.15\linewidth]{bparrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{t1parrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{t2parrot.png}
+     \quad
+     \includegraphics[width=0.15\linewidth]{t3parrot.png}
+ \end{figure}
+Left to right, source image, binarize using Otsu's method, threshold =
+50, threshold=128, threshold=200
+\end{frame}
+% -----------------------------------------------
+\begin{frame}
+  \frametitle{Morphological Operations - Fixing Binarized Images}
+ \begin{figure}
+     \includegraphics[width=0.1\linewidth]{morph-src.jpg}
+     \quad
+     \includegraphics[width=0.1\linewidth]{morph-erode.jpg}
+     \quad
+     \includegraphics[width=0.1\linewidth]{morph-dilate.jpg}
+     \caption{Source image, source after erosion, source after dilation.}
+ \end{figure}
+
+We can clean up binary images using basic morphology operations.
+\begin{itemize}
+\item We can use the\textbf{Image.dilate} to enlarges our white areasand
+  connects them.
+  \begin{itemize}
+  \item Basically if a pixel touches a white pixel we set it to white.
+  \item Can be used repeatedly. Works in color too.
+  \end{itemize}
+\item The \textbf{Image.erode} method shrinks our white areas
+  image.
+   \begin{itemize}
+   \item If a white pixel touches a black pixel we set it to black.
+   \item Can be used repeatedly.
+  \end{itemize}
+\item \textbf{Image.morphOpen} and \textbf{Image.morphClose} do
+  similar things but are used to open and close regions.
+\end{itemize}
+\end{frame}
+% -----------------------------------------------
+\begin{frame}
+  \frametitle{Fixing Binarized Images II }
+
+There are other techniques we can use to fix things. 
+\begin{itemize}
+\item \textbf{Image.floodFill} works just like the paint bucket tool
+  in an image editor. It can get rid of areas.
+\item \textbf{Image.watershed} is a sophisticated technique that can
+  really help.
+\item We can also logically and, or, xor, and nand images. 
+  \begin{itemize}
+  \item Logical and is just multiplication or \textbf{Image.logicalAND} 
+  \item Logical or is just multiplication or \textbf{Image.logicalOR} 
+  \item Logical xor is \textbf{Image.logicalXOR} 
+  \item Logical nand is \textbf{Image.logicalNAND}
+  \item These all work in color and gray scale too.
+  \end{itemize}
+\end{itemize}
 \end{frame}
 
 

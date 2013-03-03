@@ -29,3 +29,6 @@ http://www.fcpp.org/images/cartoon/exploding%20head%20300dpi.jpg
 
 hsv.png
 http://en.wikipedia.org/wiki/File:HSV_color_solid_cylinder_alpha_lowgamma.png
+
+morphology images modified from
+http://computer-vision-talks.com/2011/02/introduction-to-morphology-operations-on-images/
