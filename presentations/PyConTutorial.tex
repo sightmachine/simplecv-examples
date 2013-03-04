@@ -1317,6 +1317,8 @@ get what you want.
 \end{frame}
 
 % ------------------------------------------------
+\subsection{blobs}
+% ------------------------------------------------
 \begin{frame}
   \frametitle{Finding Blobs}
 
@@ -1573,7 +1575,112 @@ img.show()
  \end{figure}
 \end{frame}
 % ------------------------------------------------
+\subsection{Finding Lines}
 % ------------------------------------------------
+\begin{frame}
+  \frametitle{Finding Lines}
+SimpleCV makes it easy to find straight lines.
+\begin{itemize}
+\item \textbf{Image.edges} creates an image of all the lines in the
+  image using the Canny edge detector.
+\item There are two thresholds that you can tweak to improve
+  performance. 
+\item \textbf{Image.findLines} will apply the Canny edge detector and
+  then use the Hough transform to find the straight lines.
+\item \textbf{Image.findLines} returns a FeatureSet of Line features
+  that you can then filter.
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{The Line Feature}
+\begin{itemize}
+\item The line feature can be found in Detection.py
+\item Each line knows its length, its average color, its angle.
+\item \textbf{Line.findIntersection} can be used to find line intersections.
+\item You can also test for parallel and perpendicular lines
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Line Finding Example}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('hallway.jpg')
+img.show()
+img.edges().show()
+img.edges().save('hallwayedges.png')
+lines = img.findLines() # get the lines
+# return only long ones
+lines = lines.filter(lines.length() > 50 )
+lines.show(width=3)
+# now find the horz and vert lines by 
+# filtering on the angle.
+vertical = lines.filter((np.abs(lines.angle()) > 80))
+horizontal = lines.filter(np.abs(lines.angle()) < 10 )
+vertical.draw(width=3,color=Color.RED)
+horizontal.draw(width=3,color=Color.BLUE)
+img.show()
+img.applyLayers().save('hallwaylines.png')
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Line find results.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{hallway.jpg}
+     \quad
+     \includegraphics[width=0.4\linewidth]{hallwayedges.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{hallwaylines.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\subsection{Finding Circles}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Finding Circles}
+SimpleCV makes it easy to find circles too.
+\begin{itemize}
+\item Just like before we use the edge image. 
+\item \textbf{Image.findCircle} returns a FeatureSet of Circle features
+  that you can then filter.
+\item There are three thresholds that you can tweak to improve
+  performance. One for the edges, one for the circle detector, and one
+  for the circle spacing.
+\item  Circle features have all of the usual features like mean color
+  along with the ones you would expect like radius, diameter, etc. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Line Finding Example}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Line find results.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{hallway.jpg}
+     \quad
+     \includegraphics[width=0.4\linewidth]{hallwayedges.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{hallwaylines.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
