@@ -1389,6 +1389,192 @@ img.show()
 \end{frame}
 % ------------------------------------------------
 \begin{frame}
+  \frametitle{Advanced Blobs}
+Blobs have a low other neat features.
+\begin{itemize}
+\item \textbf{Blob.minRect} The rotated rectangle that best encloses
+  the blobs.
+\item \textbf{Blob.contour} A list of (x,y) tuples and other lists of
+  (x,y) tuples that describe the outer contour.
+\item \textbf{Blob.hull} The contour of the blob if you were
+  to stretch a rubber band around it. This eliminates what we call
+  concavities.
+\item \textit{Blob.mHoleContour} gives a list of the holes and
+  ``islands'' in the holes of the blob. This is a list of list that
+  may have lists inside of them. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Advanced Blobs II}
+Blobs have a lot of other neat features.
+\begin{itemize}
+\item \textbf{Blob.drawRect} Draw the square region around the blob.
+\item \textbf{Blob.drawMinRect} Draw the minimum bounding rectangle
+  for each blob.
+\item \textbf{Blob.drawOutline} The outline of the blob without the holes.
+  may have lists inside of them. 
+\item \textbf{Blob.drawHoles} Draw just the holes. 
+\item \textbf{Blob.drawHull} Draw just the blob's convex hull. (The
+  rubber band version.)
+\item \textit{These are order dependent! They can overwrite each other}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Blob drawing in action!}
+  \frametitle{Let's see an example.}
+ \begin{figure}
+     \includegraphics[width=0.3\linewidth]{handblob.png}
+ \end{figure}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('hand.jpg')
+blobs = img.findBlobs(minsize=200)
+blob = blobs[0]
+blob.drawHull(color=Color.HOTPINK,width=4)
+blob.draw(color=Color.RED,width=2)
+blob.drawRect(color=Color.GREEN, width=4)
+blob.drawMinRect(color=Color.BLUE, width=4)
+blob.drawHoles(color=Color.YELLOW, width=-1)
+img.show()
+img.applyLayers().save('handblob.png')
+\end{minted}
+\end{example}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Advanced Blobs III - Masks}
+Sometimes we want to work with binary image that comes from a blob.
+\begin{itemize}
+\item \textbf{Blob.blobImage} An image of just the blob region.
+\item \textbf{Blob.hullImage} An image of just the blob's hull region.
+\item \textbf{Blob.blobMask} A binary image of just the blob.
+\item \textbf{Blob.hullMask} A binary image of the blob's convex hull.
+\item \textbf{Blob.getFullMaskedImage} Get the original image with
+  everything black except for the blob. There is also a convex hull version.
+\item \textbf{Blob.getFullMask} Get the original sized as a binary
+  mask of the blob. Also has a hull variant.
+\item \textbf{Blob.getEdgeImage} return an image of just the blobs
+  outer edge. Also has full and hull variants. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Masks, Edges, etc}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('albino.jpg')
+img.show()
+blobs = img.findBlobs(minsize=200)
+blob = blobs[-1]
+src = blob.mImg
+src = src.sideBySide(blob.blobImage())
+src = src.sideBySide(blob.hullImage())
+src = src.sideBySide(blob.blobMask())
+src = src.sideBySide(blob.hullMask())
+src = src.sideBySide(blob.getEdgeImage())
+src = src.sideBySide(blob.getHullEdgeImage())
+src = src.scale(0.5)
+src.show()
+src.save('albinoblob.png')
+big = img
+big = big.sideBySide(blob.getFullMaskedImage())
+big = big.sideBySide(blob.getFullHullMaskedImage())
+big = big.sideBySide(blob.getFullMask())
+big = big.sideBySide(blob.getFullEdgeImage())
+big = big.sideBySide(blob.getFullHullEdgeImage())
+big = big.scale(0.3)
+big.show()
+big.save('albinoimgs.png')
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Comparing Mask Options}
+ \begin{figure}
+     \includegraphics[width=0.9\linewidth]{albinoblob.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.9\linewidth]{albinoimgs.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Advanced Blobs IV - Shape}
+We can use shape information to compare blobs
+\begin{itemize}
+\item \textbf{Blob.area} The total number of pixels in the blob.
+\item \textbf{Blob.perimeter} The length of the outside of the blob.
+\item ProTip the area/perimeter is a nice metric for smoothness.
+\item \textbf{Blob.angle} The angle between the minimum rectangle and
+  horizontal in degrees. 
+\item \textbf{Blob.centroid} The center of mass, not the center of the
+  bounding box.
+\item \textbf{Blob.rotate} Rotate a blob a certain number of
+  degrees. This changes the blobs internal state. 
+
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Advanced Blobs V - Shape}
+We can use shape information to compare blobs
+\begin{itemize}
+\item \textbf{Blob.circleDistance} and \textbf{Blob.isCircle} help to
+  find circular things.
+\item \textbf{Blob.rectangleDistance} and \textbf{Blob.isRectangle} help to
+  find rectangular things
+\item \textbf{Blob.isSquare} returns true if a blob is squareish. 
+\item \textit{Blob.mHu} A list of the seven Hu moments. These are like
+  moments of inertia in physics. Hu moments don't care about
+  rotation, and they are really helpful for matching blobs
+\item \textbf{Blob.match} returns a match value against a particular
+  blob based on shape using Hu moments.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Matching blobs}
+\begin{example}[Try to find the horse cookies given a template.]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('cookies.jpg')
+# find our cookes and draw them red, filled in
+blobs = img.findBlobs(threshval=128, minsize=200)
+blobs.draw(width=-1, color=Color.RED) #autocolor= True)
+# find the mean and std blob areas
+areaAvg = np.mean(blobs.area())
+areaStd = np.std(blobs.area())
+# filter the cookies by area and draw those green
+lilcookies = blobs.filter(blobs.area() < areaAvg+2.5*areaStd  )
+lilcookies.draw(width=-1,color=Color.GREEN)
+# Now sort the cookies so the yellow ones are at at 0
+lilcookies = lilcookies.sortColorDistance(color=Color.YELLOW)
+lilcookies[0:4].draw(width=-1,color=Color.YELLOW)
+# Now take our yellow cookies and see how
+# far they are away from the top right corner
+dists = lilcookies[0:4].distanceFrom((img.width,0))
+# find the closest one to the corner
+location = np.where(dists==np.min(dists))[0][0]
+lilcookies[location].crop().show()
+lilcookies[location].draw(width=-1,color=Color.HOTPINK)
+img.show()
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Cookie Matching Results}
+ \begin{figure}
+     \includegraphics[width=0.9\linewidth]{matchingblobs.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
 

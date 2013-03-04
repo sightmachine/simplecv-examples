@@ -38,3 +38,6 @@ http://www.flickr.com/photos/ankur479/4715351256/sizes/m/in/photostream/
 
 cookies.jpg
 http://www.flickr.com/photos/e_monk/4190156499/sizes/z/in/photostream/
+
+hand,jpg
+http://www.flickr.com/photos/75227967@N00/98193355/sizes/z/in/photostream/
