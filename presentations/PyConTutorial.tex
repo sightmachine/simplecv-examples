@@ -1737,7 +1737,82 @@ img.save('foundtemplates.png')
  \end{figure}
 \end{frame}
 % ------------------------------------------------
-
+% ------------------------------------------------
+\subsection{Finding Motion}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Motion Finding}
+Another common task is looking for motion. If you just want to detect
+change looking at the difference between images usually
+suffices. However sometimes you want to know more.
+\begin{itemize}
+\item \textbf{Image.findMotion} returns a FeatureSet of motion values
+  between two images.
+\item This method takes in a second image and then reports the
+  motion. The image sizes must match. 
+\item SimpleCV uses an algorithm called optical flow of which there
+  are several variants. You can pick the one that works best for you.
+\item There is one parameter to tweak, called window, which is the
+  sample window size. Faster movement requires larger windows.
+\item There is an aggregate flag that returns the overall value of
+  motion in the image. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Motion Finding II}
+\begin{itemize}
+\item The images should have a reasonable amount of edges, and be
+  fairly close together in time. 
+\item Motion will be most obvious around strong edges, less so
+around plain areas, but some false positives tend to happen.
+\item By default the rendered motion is scaled to unit length, but the
+  actual values vary considerably.  
+\item Be aware that there is motion from the camera, and motion from
+objects moving. 
+\item Works a lot better on a live camera.
+\item The algorithms can be computationally beefy, scale images to get
+  better results. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Motion Finding Example I}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img1 = Image('toys1.jpg')
+img1 = img1.scale(0.5)
+img1.show()
+img2 = Image('toys2.jpg')
+img2 = img2.scale(0.5)
+img2.show()
+motion = img2.findMotion(img1,method="BM",window=27)
+motion.show(width=3)
+img2.clearLayers()
+mags = [m.magnitude() for m in motion]
+bigMove = motion.filter( mags > np.mean(mags))
+bigMove.show(color=Color.RED, width=3)
+bigMove.applyLayers().save('motion.png')
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Template finding results.}
+ \begin{figure}
+     \includegraphics[width=0.7\linewidth]{motion.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Motion Finding Example II}
+This works a lot better as a live example. 
+\begin{example}[MotionExample.py]
+ \inputminted[linenos=true, tabsize=4,
+ fontsize=\tiny]{python}{MotionExample.py}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
