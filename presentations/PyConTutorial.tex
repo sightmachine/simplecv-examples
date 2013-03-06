@@ -108,7 +108,6 @@ bg= gray!15}
 SightMachine \\ % Your institution for the title page
 \medskip
 \textit{kat@sightmachine.com}
-\textit{anthony@sightmachine.com} % Your email address
 }
 \date{\today} % Date, can be changed to a custom date
 
@@ -289,7 +288,7 @@ SightMachine \\ % Your institution for the title page
 \frametitle{Early Prototypes}
 
 \begin{figure}
-  \includegraphics[width=0.9\linewidth]{shannon.png}
+  \includegraphics[width=0.8\linewidth]{shannon.png}
   \caption{Early Customer - Industrial Fastener Morphology
       and Metallurgy }
 \end{figure}
@@ -314,7 +313,7 @@ SightMachine \\ % Your institution for the title page
 \frametitle{How do I SimpleCV?}
 
 \begin{figure}
-  \includegraphics[width=0.6\linewidth]{howdoi.jpg}
+  \includegraphics[width=0.4\linewidth]{howdoi.jpg}
 \end{figure}
 
 \end{frame}
@@ -372,7 +371,7 @@ Python Files  & Deployment Code \\
 \item Close it by pressing $esc$ or $ctrl-c$
 \end{itemize}
 \begin{figure}
-  \includegraphics[width=0.9\linewidth]{HelloWorld1.png}
+  \includegraphics[width=0.8\linewidth]{HelloWorld1.png}
 \end{figure}
 \end{frame}
 
@@ -537,7 +536,7 @@ SimpleCV:4> exit
 \item Images can also come from appropriately shaped numpy arrays.
 \item PIL and OpenCV images can also be passed into the image.
 \item Can also take a URL to an image. 
-\item The \alert<+>{img.getEXIFData()} command can show jpg EXIF data.
+\item The \textbf{img.getEXIFData()} command can show jpg EXIF data.
 \end{itemize}
 \end{frame}
 
@@ -545,7 +544,7 @@ SimpleCV:4> exit
 \begin{frame}
 \frametitle{Saving an Image}
 \begin{itemize}
-\item The \alert<+>{img.save()} command is used to save images.
+\item The \textbf{img.save()} command is used to save images.
 \item You can save as just about any format, PNG, JPG, WebP, etc.
 \item Calling save with no parameters saves it to temp directory.
 \item Using the params flag you can set compression, e.g. set
@@ -557,23 +556,23 @@ SimpleCV:4> exit
 \begin{frame}
 \frametitle{Using a USB Camera}
 \begin{itemize}
-\item Most usb cameras use the \alert<+>{Camera} class. 
+\item Most usb cameras use the \textbf{Camera} class. 
 \item The camera class takes a camera index, \emph{usually} this is the
    order cameras are plugged into the computer.
 \item The camera also has properties that you can get and set, or use a propmap dictionary to set. 
- \item \emph{Support for camera properties is vendor specific and spotty at
+ \item \textbf{Support for camera properties is vendor specific and spotty at
    best.} 
- \item Cameras also have a \emph{threaded} parameter. Set this to false
+ \item Cameras also have a \textbf{threaded} parameter. Set this to false
  to run multiple cameras. 
 \end{itemize}
 \end{frame}
 % ------------------------------------------------
-\frametitle{Using a USB Camera II}
 \begin{frame}
+\frametitle{Using a USB Camera II}
 \begin{itemize}
-\item \alert<+>{Camera.getImage()} will return the current image. 
-\item \alert<+>{Camera.getAllProperties()} will return the cameras properties.
-\item \alert<+>{Camera.getProperty() and Camera.setProperty()} may let
+\item \textbf{Camera.getImage()} will return the current image. 
+\item \textbf{Camera.getAllProperties()} will return the cameras properties.
+\item \textbf{Camera.getProperty() and Camera.setProperty()} may let
   you set properties. \emph{This is highly vendor dependent and usually poorly documented.}
 \end{itemize}
 \end{frame}
@@ -584,7 +583,7 @@ SimpleCV:4> exit
 \item Kinect - Depth Camera
 \begin{itemize}
 \item Uses freenect drivers, not the OpneNI drivers.
-\item \alert<+>{Kinect.getImage and Kinect.getDepth }
+\item \textbf{Kinect.getImage and Kinect.getDepth }
 \item Note that these aren't well calibrated together.
 \end{itemize}
 \item JpegStreamReader - IP Cameras
@@ -639,7 +638,7 @@ ImageSets are lists of images. They are great for aggregating datasets.
 \begin{frame}[fragile] 
 \frametitle{ImageSet Example}
 \begin{example}[Image Sets]
-\begin{minted}[]{python}
+\begin{minted}[fontsize=\tiny]{python}
 mySet = ImageSet()
 mySet.download('cats') # download cats
 mySet.show() # show them to us
@@ -1571,7 +1570,7 @@ img.show()
 \begin{frame}
 \frametitle{Cookie Matching Results}
  \begin{figure}
-     \includegraphics[width=0.9\linewidth]{matchingblobs.png}
+     \includegraphics[width=0.7\linewidth]{matchingblobs.png}
  \end{figure}
 \end{frame}
 % ------------------------------------------------
@@ -1677,6 +1676,64 @@ SimpleCV makes it easy to find circles too.
  \end{figure}
  \begin{figure}
      \includegraphics[width=0.4\linewidth]{hallwaylines.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\subsection{Finding Templates}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Template Matching}
+Sometimes you have an image that you want to use as a ``template'' and you
+want to match it to something in your image. 
+\begin{itemize}
+\item \textbf{Image.findTemplate} returns a FeatureSet of template features
+  that you can then filter.
+\item Templates can handle a little bit of rotation, illumination
+  change, and skew, but not much.
+\item you can try slightly rotating your template, or using the edge
+  image of something like the \textbf{Image.sobel} operation to
+  improve performance.
+\item The performance of the matching can be tuned using different
+  matching methods and by tweaking the threshold.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Template Finding Example}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('coins1.jpg')
+mask = img.threshold(130).invert()
+blobs = img.findBlobsFromMask(mask, minsize=200)
+blobs.show(width=-1)
+img.clearLayers()
+blobs[-5].crop().show()
+template = blobs[-5].crop()
+template.save('template1.png')
+found = img.findTemplate(template,threshold=2.2)
+found.draw(color=Color.RED)
+template2 = blobs[5].crop()
+template2.save('template2.png')
+template2.show()
+found2 = img.findTemplate(blobs[5].crop(),threshold=4.15)
+found2.draw(color=Color.BLUE)
+found2.show()
+img.save('foundtemplates.png')
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Template finding results.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{foundtemplates.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.1\linewidth]{template1.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{template2.png}
  \end{figure}
 \end{frame}
 % ------------------------------------------------
