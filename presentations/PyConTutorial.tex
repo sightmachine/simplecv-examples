@@ -1754,8 +1754,7 @@ suffices. However sometimes you want to know more.
   are several variants. You can pick the one that works best for you.
 \item There is one parameter to tweak, called window, which is the
   sample window size. Faster movement requires larger windows.
-\item There is an aggregate flag that returns the overall value of
-  motion in the image. 
+ 
 \end{itemize}
 \end{frame}
 % ------------------------------------------------
@@ -1798,7 +1797,7 @@ bigMove.applyLayers().save('motion.png')
 \end{frame} 
 % ------------------------------------------------
 \begin{frame}
-\frametitle{Template finding results.}
+\frametitle{Motion finding results.}
  \begin{figure}
      \includegraphics[width=0.7\linewidth]{motion.png}
  \end{figure}
@@ -1813,6 +1812,51 @@ This works a lot better as a live example.
 \end{example}
 \end{frame} 
 % ------------------------------------------------
+\subsection{Optional Libs - Text and Barcodes.}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Finding Text and Reading Barcodes}
+Text and barcode reading are optional libraries that we've added hooks
+for. 
+\begin{itemize}
+\item \textbf{Image.findBarcodes} uses either lib zxing or zlib. 
+  \begin{itemize}
+    \item Each has its advantages and disadvantages. Generally zxing works better.
+    \item Returns a barcode feature with the location and the data. 
+  \end{itemize}
+\item \textbf{Image.readText} uses python bindings to the tesseract
+  library.
+  \begin{itemize}
+    \item Does not work in the SimpleCV ipython notebook, but we're
+      working on it. 
+   \item Translation to string often leaves lots of spare
+     characters. Formatting is an issue. 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Reading a QR Code}
+\begin{example}
+\begin{minted}[fontsize=\small]{python}
+qrimg = Image('qrcode.png')
+qrimg.show()
+bc = qrimg.findBarcode()
+bc.show(width=3)
+print bc[0].data
+qrimg.drawText(str(bc[0].data),10,10, \\
+               color=Color.RED,fontsize=24)
+qrimg.show()
+img = Image('textcard.jpg')
+img.show()
+print img.readText()
+\end{minted}
+\end{example}
+\end{frame} 
+ 
+
+
+
 \begin{frame}
   \frametitle{Paragraphs of Text}
   Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
