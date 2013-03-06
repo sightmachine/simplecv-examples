@@ -868,6 +868,84 @@ test4.show()
 \end{itemize}
 \end{frame}
 % ------------------------------------------------
+\section{Rendering Information}
+\begin{frame}
+\frametitle{SimpleCV treats on image rendering as a separate layer.}
+\begin{itemize}
+  \item Each image has a stack of transparent drawing layers. 
+  \item Every time you call a draw command we draw on the transparent layer.
+  \item This is layer is rendered when you call the
+    \textbf{Image.show} command or save it to a display.
+  \item \textbf{Image.save} does not save the drawing layer by default.
+ \item Use the \textbf{Image.applyLayers} command to return a new
+   image with the layer applied.
+   \item The \textbf{Image.clearLayers} command removes the layers.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Accessing the drawing layer.}
+\begin{itemize}
+  \item \textbf{Image.dl} method returns the drawing layer that has
+      more advanced rendering features. 
+  \item The drawinglayer is really a list of layers if you need them.
+  \item You can set the layer alpha value. 
+  \item Allows for more fine grained control.
+  \item Use sprite for non-destructive blit function.
+  \item Use the \textbf{Color} class for colors or set your own. 
+\end{itemize}
+\end{frame}
+
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Basic Drawing Primitives}
+\begin{itemize}
+  \item \textbf{Image.drawCircle} - Draw a circle based on center and radius.
+  \item \textbf{Image.drawRectanle} - Draw a rectangle on top left
+    corner and width and height.
+  \item \textbf{Image.drawRotatedRectangle} - Draw rectangle from
+    rotated points.
+  \item \textbf{Image.drawText} - Draw a line of text at a position
+  \item \textbf{Image.drawLine} - Draw a line based on two (x,y) points.
+  \item \textbf{Image.drawPoints} - Put a circle around points of
+    interest. 
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Go crazy with drawing.}
+\begin{example}[Basic Manipulations]
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('tricky.jpg')
+poly = [(0,0),(30,50),(123,213),(234,234),(333,434)]
+img.dl().polygon(poly,color=Color.GREEN,filled=True)
+for i in xrange(30,90,9):
+    poly2 = [(p[0]+i,p[1]+i) for p in poly]
+    img.dl().polygon(poly2,color=Color.getRandom(),filled=True,alpha=128)
+img.drawRectangle(130,190,200,50,color=Color.BLACK,width=-1,alpha=128)
+img.drawCircle((170,220),20,color=Color.WHITE)
+img.drawCircle((230,220),20,color=Color.WHITE)
+img.drawLine((0,0),(100,100),color=Color.PUCE,thickness=3)
+img.drawLine((300,200),(300,200),color=Color.PUCE,thickness=3)
+img.drawLine((45,300),(300,45),color=Color.PUCE,thickness=3)
+img.drawText('HELLO WORLD!',30,30,fontsize=60)
+img.show()
+img.applyLayers().save('crazynixon.png')
+img.clearLayers()
+img.show()
+\end{minted}
+\end{example}
+\end{frame}
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Crazy Drawing Stuff.}
+ \begin{figure}
+     \includegraphics[width=0.5\linewidth]{crazynixon.png}
+     \caption{Various drawing things.}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+
 
 \section{Let's talk about black, white, and color}
 % ------------------------------------------------
@@ -1853,7 +1931,101 @@ print img.readText()
 \end{minted}
 \end{example}
 \end{frame} 
+\subsection{Finding Faces and Face Features}
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{Face Finding}
+There are built in utilities in SimpleCV for finding faces and parts
+of faces.
+\begin{itemize}
+\item \textbf{Image.findTemplate} returns a FeatureSet of template features
+  that you can then filter.
+\item Templates can handle a little bit of rotation, illumination
+  change, and skew, but not much.
+\item you can try slightly rotating your template, or using the edge
+  image of something like the \textbf{Image.sobel} operation to
+  improve performance.
+\item The performance of the matching can be tuned using different
+  matching methods and by tweaking the threshold.
+\end{itemize}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Fun With Faces Example 1}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+def swap(img1,f1,img2,f2):
+    print f1.width
+    print f1.height
+    f1mask = f1.crop().resize(w=f1.width(),h=f1.height())
+    f2mask = f2.crop().resize(w=f1.width(),h=f1.height())
+    out1 = img1.blit(f2mask,f1.topLeftCorner(),alpha=0.8)
+    out2 = img2.blit(f1mask,f2.topLeftCorner(),alpha=0.8)
+    return out1,out2
+img1 = Image('tricky.jpg')
+img2 = Image('picard.jpg')
+img1.show()
+img2.show()
+face1 = img1.findHaarFeatures('face.xml')
+face1.show()
+face2 = img2.findHaarFeatures('face.xml')
+face2.show()
+img3, img4 = swap(img1,face1[0],img2,face2[0])
+img3.show()
+img3.save('swap1.png')
+img4.show()
+img4.save('swap2.png')
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Leaders of the free world.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{swap1.png}
+     \quad
+     \includegraphics[width=0.4\linewidth]{swap2.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Fun With Faces Example 2}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+img = Image('picard.jpg')
+blobs = img.findSkintoneBlobs()
+print len(blobs)
+for b in blobs:
+    b.draw(color=Color.GREEN,alpha=128,width=-1)
+img.show()
+img.applyLayers().save('alien.png')
+img.listHaarFeatures()
+mouth = img.findHaarFeatures('mouth.xml')
+mustache = Image('stash.png')
+mustache = mustache.resize(mouth[0].width())
+tl = mouth[0].topLeftCorner()
+pos = (tl[0],tl[1]-10)
+img = img.blit(mustache,pos,mask=mustache.invert())
+img.show()
+img.save('psstash.png')
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Leaders of the free world.}
+ \begin{figure}
+     \includegraphics[width=0.4\linewidth]{alien.png}
+     \quad
+     \includegraphics[width=0.4\linewidth]{psstash.png}
+ \end{figure}
+\end{frame}
+% ------------------------------------------------
  
+ 
+
 
 
 
