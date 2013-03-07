@@ -1938,15 +1938,14 @@ print img.readText()
 There are built in utilities in SimpleCV for finding faces and parts
 of faces.
 \begin{itemize}
-\item \textbf{Image.findTemplate} returns a FeatureSet of template features
-  that you can then filter.
-\item Templates can handle a little bit of rotation, illumination
-  change, and skew, but not much.
-\item you can try slightly rotating your template, or using the edge
-  image of something like the \textbf{Image.sobel} operation to
-  improve performance.
-\item The performance of the matching can be tuned using different
-  matching methods and by tweaking the threshold.
+\item These parts of the face are found using what is called a Haar
+  Cascade. 
+\item Lots of data and research went into developing these tools. 
+\item \textbf{Image.findHaarFeatures} returns a FeatureSet of features
+  corresponding to the cascade you pass it.
+\item \textbf{Image.listHaarFeatures} will list all of the ones
+  available, the default is front faces. 
+\item Not perfect, can't get all faces all the time. Sometimes it finds false positive.
 \end{itemize}
 \end{frame}
 % ------------------------------------------------

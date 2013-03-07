@@ -41,3 +41,9 @@ http://www.flickr.com/photos/e_monk/4190156499/sizes/z/in/photostream/
 
 hand,jpg
 http://www.flickr.com/photos/75227967@N00/98193355/sizes/z/in/photostream/
+
+albino.jpg
+http://www.flickr.com/photos/victius/3878107825/sizes/z/in/photostream/
+
+hallway.jpg
+http://www.flickr.com/photos/camknows/7950919436/sizes/z/in/photostream/
