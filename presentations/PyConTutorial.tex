@@ -15,10 +15,10 @@
 %	PACKAGES AND THEMES
 %----------------------------------------------------------------------------------------
 
-\documentclass{beamer}
+\documentclass[compress]{beamer}
 
 \mode<presentation> {
-
+\setbeamertemplate{headline}{}
 % The Beamer class comes with a number of default slide themes
 % which change the colors and layouts of slides. Below this is a list
 % of all the themes, uncomment each in turn to see what they look like.
@@ -33,7 +33,7 @@
 %\usetheme{CambridgeUS}
 %\usetheme{Copenhagen}
 %\usetheme{Darmstadt}
-\usetheme{Dresden}
+%\usetheme{Dresden}
 %\usetheme{Frankfurt}
 %\usetheme{Goettingen}
 %\usetheme{Hannover}
@@ -49,7 +49,7 @@
 %\usetheme{Rochester}
 %\usetheme{Singapore}
 %\usetheme{Szeged}
-%\usetheme{Warsaw}
+\usetheme{Warsaw}
 
 % As well as themes, the Beamer class has a number of color themes
 % for any slide theme. Uncomment each of these in turn to see how it
@@ -65,7 +65,7 @@
 %\usecolortheme{lily}
 %\usecolortheme{orchid}
 %\usecolortheme{rose}
-%\usecolortheme{seagull}
+\usecolortheme{seagull}
 %\usecolortheme{seahorse}
 %\usecolortheme{whale}
 %\usecolortheme{wolverine}
@@ -83,6 +83,7 @@
 \usepackage{subcaption}
 \usepackage{listings} %syntax highlighting?
 \usepackage{minted}
+\usepackage{multicol} % table of contents
 %\usepackage{subfigure}
 
 %----------------------------------------------------------------------------------------
@@ -98,7 +99,8 @@ bg= gray!30}
 bg= gray!15}
 \graphicspath{ {./images/}{./}{./timgs/} }
 
-\title[How do I SimpleCV?]{A Crash Course on SimpleCV} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Introduction to SimpleCV]{A Gentle Introduction to
+  Computer Vision using SimpleCV} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Katherine Scott} % Your name
 %\author{Anthony Oliver} % Your name
@@ -118,9 +120,18 @@ SightMachine \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-\frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+  \frametitle{Outline}
+  %\tableofcontents[pausesections,subsectionstyle=hide]
+  \tableofcontents[currentsection,sectionstyle=show,subsectionstyle=hide]
+  % You might wish to add the option [pausesections]
 \end{frame}
+
+% \begin{frame}%{\contentsname}
+% %\begin{multicols}{2}
+% \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% %\end{multicols}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
@@ -166,8 +177,6 @@ SightMachine \\ % Your institution for the title page
 %------------------------------------------------
 \section{What is SimpleCV?} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
-
-\subsection{What makes up SimpleCV?} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 % ------------------------------------------------
 \begin{frame}
@@ -305,8 +314,7 @@ SightMachine \\ % Your institution for the title page
 
 \end{frame}
 
-\section{SimpleCV}
-\subsection{Getting Started}
+\section{SimpleCV Basics}
 
 % ------------------------------------------------
 \begin{frame}
@@ -437,7 +445,7 @@ Documentation:
 \begin{frame}[fragile] 
 \frametitle{Let's repeat Hello World  in SimpleCV  Shell}
 \begin{example}[In the SimpleCV shell]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 SimpleCV:1> cam = Camera()
 SimpleCV:2> disp = Display((640,480))
 SimpleCV:3> while disp.isNotDone():
@@ -469,7 +477,7 @@ SimpleCV:4> exit
 \begin{frame}
 \frametitle{Why use iPython Web Notebooks}
 \begin{figure}
-  \includegraphics[width=0.7\linewidth]{venn.png}
+  \includegraphics[width=0.4\linewidth]{venn.png}
 \end{figure}
 \begin{itemize}
 \item Web notebooks give you the best features of an IDE and a REPL.
@@ -638,7 +646,7 @@ ImageSets are lists of images. They are great for aggregating datasets.
 \begin{frame}[fragile] 
 \frametitle{ImageSet Example}
 \begin{example}[Image Sets]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 mySet = ImageSet()
 mySet.download('cats') # download cats
 mySet.show() # show them to us
@@ -655,7 +663,6 @@ for cat in mySet: # iterate over the set of cats
 \end{frame}
 % ------------------------------------------------
 \section{Really Basic Operations}
-\subsection{Getting at the Pixels}
 \begin{frame}
 \frametitle{Getting at a pixel}
 \begin{figure}
@@ -673,7 +680,7 @@ value tuples.
 \begin{frame}[fragile] 
 \frametitle{Pixel Manipulation Example}
 \begin{example}[Getting at those pixels]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('helloworld.jpg')
 c = img[0,0] # get a pixel
 print c
@@ -1099,7 +1106,7 @@ things.
 \begin{frame}[fragile] 
 \frametitle{Shades of Gray}
 \begin{example}[Modify Grayscale Images]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('penguins.jpg')
 img = img.toGray()
 eImg = img.crop(180,400,100,100)
@@ -1149,7 +1156,7 @@ the white areas foreground and the black areas background. }
 \begin{frame}[fragile] 
 \frametitle{Basic Binarization}
 \begin{example}[Let's find the parrot]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('parrot.jpg')
 b = img.binarize().invert() # automatic
 t1 = img.threshold(50) # too low
@@ -1237,7 +1244,7 @@ There are other techniques we can use to fix things.
 \begin{frame}[fragile] 
 \frametitle{Advanced Binarization}
 \begin{example}[Get a binary representation of the parrot.]
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('parrot.jpg')
 img.show()
 binary = img.binarize().invert() # automatic
@@ -1684,7 +1691,7 @@ SimpleCV makes it easy to find straight lines.
 \begin{frame}[fragile] 
 \frametitle{Line Finding Example}
 \begin{example}
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('hallway.jpg')
 img.show()
 img.edges().show()
@@ -1781,7 +1788,7 @@ want to match it to something in your image.
 \begin{frame}[fragile] 
 \frametitle{Template Finding Example}
 \begin{example}
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img = Image('coins1.jpg')
 mask = img.threshold(130).invert()
 blobs = img.findBlobsFromMask(mask, minsize=200)
@@ -1856,7 +1863,7 @@ objects moving.
 \begin{frame}[fragile] 
 \frametitle{Motion Finding Example I}
 \begin{example}
-\begin{minted}[fontsize=\tiny]{python}
+\begin{minted}[fontsize=\small]{python}
 img1 = Image('toys1.jpg')
 img1 = img1.scale(0.5)
 img1.show()
@@ -2022,161 +2029,212 @@ img.save('psstash.png')
  \end{figure}
 \end{frame}
 % ------------------------------------------------
- 
- 
-
-
-
-
-\begin{frame}
-  \frametitle{Paragraphs of Text}
-  Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
-
-  Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit
-  amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit
-  ipsum. Aenean lobortis commodo seDerkt commodo leo gravida
-  vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget
-  sit amet purus. Integer ornare nulla quis neque ultrices
-  lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat
-  ullamcorper id.
-\end{frame}
+ \section{Grand Finale - Machine Learning and SimpleCV}
 
 % ------------------------------------------------
-
 \begin{frame}
-  \frametitle{Bullet Points}
+  \frametitle{Introduction To ML}
+SimpleCV has a number of utilities for doing supervised 
+machine learning.
+\begin{itemize}
+\item Supervised machine learning is where we show an algorithm
+  examples of what we want to classify and it tunes itself to
+  optimally classify objects.
+\item Usually this type of machine learning is used for:
   \begin{itemize}
-  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-  \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis
-    est, quis porttitor odio mauris at libero
-  \item Nam cursus est eget velit posuere pellentesque
-  \item Vestibulum faucibus velit a augue condimentum quis convallis
-    nulla gravida
+  \item Tell one thing from another. E.g. cats vs dogs.
+  \item Tell multiple things from each other E.g. cats vs dogs vs
+    ponies.
+  \item Tell if one or more things exist in an image. 
   \end{itemize}
+\end{itemize}
 \end{frame}
-
 % ------------------------------------------------
-
 \begin{frame}
-  \frametitle{Multiple Columns}
-
-  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-
-    \column{.45\textwidth} % Left column and width
-    \textbf{Heading}
-    \begin{enumerate}
-    \item Statement
-    \item Explanation
-    \item Example
-    \end{enumerate}
-
-    \column{.5\textwidth} % Right column and width
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-    lectus nisl, ultricies in feugiat rutrum, porttitor sit amet
-    augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis
-    accumsan dolor.
-
-  \end{columns}
+  \frametitle{The process.}
+\begin{itemize}
+\item Collect some data -- either manually, by scraping the web, or
+  using an existing data set.
+\item Chop the data into subsets. The most basic subset is to divide
+  the data into two parts: a test set and a train set.
+\item Extract features from the data and try a variety of
+  classification techniques.
+  \begin{itemize}
+  \item This is part art and part science. Each classifier has different
+    properties, and so does each kind of feature. 
+  \item There are techniques for determining what features are more
+    salient than others.
+  \end{itemize}
+\item Train the classifiers and apply them to new data. Pick the one
+  that has the best results.
+\item Deploy the classifier.
+\end{itemize}
 \end{frame}
-
-
+% ------------------------------------------------
 \begin{frame}
-\frametitle{Table}
-\begin{table}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
+  \frametitle{The Mechanics}
+  \begin{itemize} 
+  \item \textbf{FeatureExtractors} can used to extract common ``feature vectors'' from images
+    as lists. 
+    \begin{itemize}
+    \item \textbf{HueHistogramFeatureExtractor} - returns a histogram
+      of hues.
+    \item \textbf{EdgeHistogramFeatureExtractor} - The angles of the
+      line in the image.
+    \item \textbf{HaarLikeFeatureExtractor} - Rough measures of
+      symmetry and shape.
+    \item \textbf{BOFFeatureExtracor} - Little tiny edge gradient
+      features.
+    \item \textbf{MorphologyFeatureExtractor} - Blob Hu moments,
+      length, width, aspect ratio, perimeter, etc. 
+    \item Many more -- write your own!
+    \end{itemize} 
+\end{itemize}
 \end{frame}
-
-%------------------------------------------------
-
+% ------------------------------------------------
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
+  \frametitle{The Mechanics II}
+  \begin{itemize} 
+  \item \textbf{Classifiers} Can then be used to classify images based
+    on these ``feature vectors''
+    \begin{itemize} 
+    \item \textbf{KNNClassifier} - Return the class of the feature set
+      in the training data that is closest to the input vector.
+    \item \textbf{SVMClassifier} - Support vector machine, find a
+      mathematical function that best separates our classes. 
+      \item \textbf{NaiveBayesClassifier} weight the probability of
+        the class appearing along with the probability of a feature
+        appearing.
+      \item \textbf{TreeClassifier} - Basically a big long list if/else
+        statements to reach a decision. Lots of different flavors of
+        trees and forests (lots of trees).
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+  % ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}
+  \frametitle{The Mechanics III}
+\begin{itemize}
+\item Training and testing machine learning is easiest if you save
+  your data to file, usually sorted into directories by class.
+\item \textbf{TurkingModule} can help you manually sift through your
+  data and save it.
+\item \textbf{ConfusionMatrix} class can be used to help you figure
+  out how well your classifier works. Prints out what classes are
+  confused with what other classes.
+\item Use pickle to save classifiers.
+\end{itemize}
 \end{frame}
-
-%------------------------------------------------
-
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
-\begin{minted}{python}
-
-  def doStuff(a,b,c=[1,2,3]):
-      a = 5
-      b = a 
-      c.reverse()
-  
-  derp = [1,2,3,4]
-  for i in derp:
-     doStuff()
-     pass
-  print deep
-
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{I'll have what he's having}
+Data has already been downloaded from Google image search and saved in
+the data directory. 
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+hhfe = HueHistogramFeatureExtractor(10) #look for hue
+ehfe = EdgeHistogramFeatureExtractor(10) # look at edge orientation
+# look at the basic shape
+haarfe = HaarLikeFeatureExtractor(fname="../../../SimpleCV/SimpleCV/Features/haar.txt")
+extractors = [hhfe,ehfe,haarfe] # put these all together
+svm = SVMClassifier(extractors) # try an svm, default is an RBF kernel function
+tree = TreeClassifier(extractors) # also try a decision tree
+trainPaths = ['./data/wine/train/','./data/beer/train/','./data/whiskey/train']
+testPaths = ['./data/wine/test/','./data/beer/test/','./data/whiskey/test/']
+# define the names of our classes
+classes = ['wine','beer','whiskey']
+# train the data
+print svm.train(trainPaths,classes,verbose=False)
+print tree.train(trainPaths,classes,verbose=False)
+print "----------------------------------------"
+# now run it against our test data.
+print svm.test(testPaths,classes,verbose=False)
+print tree.test(testPaths,classes,verbose=False)
 \end{minted}
 \end{example}
-\end{frame}
-
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
-\begin{verbatim}
-
-$E = mc^2$
-
-\end{verbatim}
+\end{frame} 
+% ------------------------------------------------
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Making Sense of the Results}
+\begin{example}
+\begin{minted}[fontsize=\tiny]{python}
+# SVM training results -- good
+# percent correct / percent incorrect / confusion matrix
+[100.0, 0.0, [[15.0, 0.0, 0.0], [0.0, 15.0, 0.0], [0.0, 0.0, 15.0]]]
+# The basic decision tree
+Angle_feature4x3_12 (<15.000, 15.000, 15.000>) 
+: <=1208958.500 
+   Angle_feature3x2_5 (<8.000, 15.000, 15.000>) 
+# <---- SNIP ----> 
+: >1208958.500 --> wine (<7.000, 0.000, 0.000>)
+# Tree training results 91 percent correct 9 incorrect 
+# two wines were classified as whiskey, one as a beer
+# one whiskey was labeled wine 
+[91.11111111111111, 8.88888888888889, [[15.0, 0.0, 0.0], [2.0, 12.0, 1.0], [0.0, 1.0, 14.0]]]
+----------------------------------------
+# The results on all new data for SVM
+[77.77777777777779, 22.22222222222222, [[10.0, 0.0, 5.0], [0.0, 10.0, 5.0], [0.0, 0.0, 15.0]]]
+# The results on all new data for our Tree
+[80.0, 20.0, [[14.0, 0.0, 1.0], [3.0, 11.0, 1.0], [2.0, 2.0, 11.0]]]
+\end{minted}
 \end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}[fragile] 
+\frametitle{Visualizing the Results}
+\begin{example}
+\begin{minted}[fontsize=\tiny linenos=true]{python}
+import random
+test = ImageSet()
+for p in trainPaths: # load the data
+    test += ImageSet(p)
+random.shuffle(test) # shuffle it
+test = test[0:10] # pick ten off the top
+i = 0
+for t in test:
+    className = tree.classify(t) # classify them
+    t.drawText(className,10,10,fontsize=80,color=Color.RED)
+    fname = "./timgs/classification"+str(i)+".png"
+    t.applyLayers().resize(w=128).save(fname)
+    i = i + 1
+test.show()
+\end{minted}
+\end{example}
+\end{frame} 
+% ------------------------------------------------
+\begin{frame}
+\frametitle{Classification Results}
+ \begin{figure}
+     \includegraphics[width=0.1\linewidth]{classification0.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification1.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification2.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification3.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification4.png}
+ \end{figure}
+ \begin{figure}
+     \includegraphics[width=0.1\linewidth]{classification5.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification6.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification7.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification8.png}
+     \quad
+     \includegraphics[width=0.1\linewidth]{classification9.png}
+ \end{figure}
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Citation}
-An example of the \verb|\cite| command to cite within the presentation:\\~
-
-This statement requires citation \cite{p1}.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{References}
-\footnotesize{
-\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
-\end{thebibliography}
-}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\Huge{\centerline{The End}}
+\Huge{\centerline{The End -- GO HAVE FUN!}}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
