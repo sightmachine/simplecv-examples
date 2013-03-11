@@ -47,3 +47,6 @@ http://www.flickr.com/photos/victius/3878107825/sizes/z/in/photostream/
 
 hallway.jpg
 http://www.flickr.com/photos/camknows/7950919436/sizes/z/in/photostream/
+
+clock.jpg
+http://www.flickr.com/photos/kc2hmv/4862250726/sizes/z/in/photostream/

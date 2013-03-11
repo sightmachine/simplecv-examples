@@ -103,7 +103,6 @@ bg= gray!15}
   Computer Vision using SimpleCV} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Katherine Scott} % Your name
-%\author{Anthony Oliver} % Your name
 
 \institute[SightMachine] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
@@ -168,7 +167,7 @@ SightMachine \\ % Your institution for the title page
   \begin{itemize}
     \item It will be a lot of live coding. I'll lead, you follow along.
     \item If you have a question feel free to interrupt. 
-    \item If you are having an issue raise a flag. Anthony will help
+    \item If you are having an issue raise a hand. Asistants will help
       you. 
     \end{itemize}
 \end{frame}
@@ -1744,23 +1743,31 @@ SimpleCV makes it easy to find circles too.
 % ------------------------------------------------
 % ------------------------------------------------
 \begin{frame}[fragile] 
-\frametitle{Line Finding Example}
+\frametitle{Circle Finding Example}
 \begin{example}
-\begin{minted}[fontsize=\tiny]{python}
-
+\begin{minted}[fontsize=\small]{python}
+img = Image('clock.jpg')
+img.show()
+temp = img.binarize()
+circles = temp.findCircle(thresh=200)
+circles.show(width=3)
+temp.applyLayers().save('circleedges.png')
+circles = circles.sortArea()
+circles[-1].crop().show()
+circles[-1].crop().save('clockface.png')
 \end{minted}
 \end{example}
 \end{frame} 
 % ------------------------------------------------
 \begin{frame}
-\frametitle{Line find results.}
+\frametitle{Circle finding results.}
  \begin{figure}
-     \includegraphics[width=0.4\linewidth]{hallway.jpg}
+     \includegraphics[width=0.3\linewidth]{clock.jpg}
      \quad
-     \includegraphics[width=0.4\linewidth]{hallwayedges.png}
+     \includegraphics[width=0.3\linewidth]{circleedges.png}
  \end{figure}
  \begin{figure}
-     \includegraphics[width=0.4\linewidth]{hallwaylines.png}
+     \includegraphics[width=0.1\linewidth]{clockface.png}
  \end{figure}
 \end{frame}
 % ------------------------------------------------
