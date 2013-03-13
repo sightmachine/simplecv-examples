@@ -1,4 +1,5 @@
 from SimpleCV import *
+import webbrowser
 apikey="6b5d123910612ee2902df3ba088d****"
 face_count = 10
 mfw = ImageSet()
@@ -18,4 +19,5 @@ while count < face_count:
 print "ALL DONE!"
 mfw.save('myfacewhen.gif')
 temp = Image('myfacewhen.gif')
-print temp.upload('imgur',apikey)
+urls = temp.upload('imgur',apikey)
+webbrowser.open(urls[1])
