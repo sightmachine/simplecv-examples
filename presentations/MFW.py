@@ -1,0 +1,21 @@
+from SimpleCV import *
+apikey="6b5d123910612ee2902df3ba088d****"
+face_count = 10
+mfw = ImageSet()
+cam = Camera()
+count = 0
+
+while count < face_count:
+    img = cam.getImage()
+    faces = img.findHaarFeatures('face')
+    if faces is not None:
+        faces[-1].draw()
+        print count 
+        mfw.append(faces[-1].crop().resize(128,128))
+        count = count + 1
+    img.show()
+
+print "ALL DONE!"
+mfw.save('myfacewhen.gif')
+temp = Image('myfacewhen.gif')
+print temp.upload('imgur',apikey)
