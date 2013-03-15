@@ -20,4 +20,6 @@ print "ALL DONE!"
 mfw.save('myfacewhen.gif')
 temp = Image('myfacewhen.gif')
 urls = temp.upload('imgur',apikey)
+webbrowser.open('http://www.twitter.com/')
 webbrowser.open(urls[1])
+
