@@ -10,7 +10,7 @@ while count < face_count:
     img = cam.getImage()
     faces = img.findHaarFeatures('face')
     if faces is not None:
-        faces[-1].draw()
+        faces[-1].draw(width=5)
         print count 
         mfw.append(faces[-1].crop().resize(128,128))
         count = count + 1
