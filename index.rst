@@ -2,14 +2,21 @@
 
   <div id="PageHeaderWrapper">
                 <h1 class="pageHeader">
-			Example Code Using SimpleCV
+			SimpleCV Tutorial
                 </h1>
             </div>
             <div id="PageBody">
                 <p>
-		An easy way to become familiar with SimpleCV is by reading the example code files listed here.  These are basic types of programs which demonstrate the concepts behind working with SimpleCV.  The code associated with each example is available in the <a href="">example zip file</a> (125K).
-		</p><p>
-			<strong>Note:</strong> These examples are written for SimpleCV version 1.2. Certain functions may not work in earlier versions. For best results, <a href="http://www.simplecv.org/download/">download the latest version</a>.
+		An easy way to become familiar with SimpleCV is by following the tutorial here.  These are basic types of programs which demonstrate the concepts behind working with SimpleCV.
+		</p>
+		<p>
+		<h4>About</h4>
+		SimpleCV is an open source framework — meaning that it is a collection of libraries and software that you can use to develop vision applications. It lets you work with the images or video streams that come from webcams, Kinects, FireWire and IP cameras, or mobile phones. It’s helps you build software to make your various technologies not only see the world, but understand it too.
+
+		SimpleCV is free to use, and because it’s open source, you can also modify the code if you choose to. It’s written in Python, and runs on Mac, Windows, and Ubuntu Linux. It’s developed by the engineers at <a href="http://sightmachine.com">Sight Machine</a>, and it’s licensed under the BSD license.
+		</p>
+		<p>
+			<strong>Note:</strong> These examples are written for SimpleCV version 1.3 or greater. Certain functions may not work in earlier versions. For best results, <a href="http://www.simplecv.org/download/">download the latest version</a>.
 		</p>
 		<ul>
 			<li><a href="examples/helloworld.html">The Hello World program</a></li>
