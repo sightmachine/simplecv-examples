@@ -1,10 +1,10 @@
+SimpleCV Tutorial
+=============
 .. raw:: html
 
+
   <div id="PageHeaderWrapper">
-                <h1 class="pageHeader">
-			SimpleCV Tutorial
-                </h1>
-            </div>
+  </div>
             <div id="PageBody">
                 <p>
 		An easy way to become familiar with SimpleCV is by following the tutorial here.  These are basic types of programs which demonstrate the concepts behind working with SimpleCV.
@@ -18,7 +18,10 @@
 		<p>
 			<strong>Note:</strong> These examples are written for SimpleCV version 1.3 or greater. Certain functions may not work in earlier versions. For best results, <a href="http://www.simplecv.org/download/">download the latest version</a>.
 		</p>
+		<h4>Tutorials & Examples</h4>
 		<ul>
+			<li><a href="examples/shell.html">SimpleCV Shell</a></li>
+			<li><a href="examples/basics.html">SimpleCV Basics</a></li>
 			<li><a href="examples/helloworld.html">The Hello World program</a></li>
 			<li><a href="examples/interacting-with-the-display.html">Interacting with the Display</a></li>
 			<li><a href="examples/directory-of-images.html">Loading a Directory of Images</a></li>
@@ -48,5 +51,9 @@
 					<li><a href="examples/display.html#making-a-custom-display-object">Making a Custom Display Object</a></li>
 				</ul>
 			</li>
+		</ul>
+		<h4>Videos & Video Tutorials</h4>
+		<ul>
+			<li><a href="examples/pycon-2013.html">Pycon 2013</a></li>
 		</ul>
   </div>
