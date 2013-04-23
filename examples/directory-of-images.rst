@@ -9,7 +9,7 @@ similiar things, for instance maybe a bunch of pictures of fruit and you want
 to use computer vision to detect the type of fruit based on **features** that
 we define.
 
-.. note:: Free data sets are available in a list here: http://github.com/ingenuitas/SimpleCV/wiki/List-of-know-open-data-sets-for-testing
+.. note:: Free data sets are available in a list here: http://github.com/sightmachine/SimpleCV/wiki/List-of-know-open-data-sets-for-testing
 
 
 So what you will need to do is browse the web and download images into
