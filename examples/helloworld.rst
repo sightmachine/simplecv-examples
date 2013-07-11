@@ -12,7 +12,7 @@ Here is the code::
 
     cam = Camera()
 
-    while (1):
+    while True:
         img = cam.getImage()
         img.show()
 
@@ -32,7 +32,7 @@ The same program could also be written as::
     import SimpleCV
     cam = SimpleCV.Camera()
 
-    while (1):
+    while True:
         img = cam.getImage()
         img.show()
 
