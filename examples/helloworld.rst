@@ -1,5 +1,5 @@
-.. pyckecher: http://pychecker.sourceforge.net/
-.. pylint: https://bitbucket.org/logilab/pylint/
+.. _pychecker: http://pychecker.sourceforge.net/
+.. _pylint: https://bitbucket.org/logilab/pylint/
 
 Writing the Hello World Program
 ===============================
