@@ -109,7 +109,7 @@ To explain a little more in detail, a binarize takes a greyscale image, and
 pushes the color one way or another.  Let's first get our greyscale image.
 
 
-	>>> grey = lenna.getGreyscale()
+	>>> grey = lenna.greyscale()
 	>>> grey.show()
 
 
