@@ -224,8 +224,7 @@ A color map takes a start and end point in 3D space and lets you map a range of 
 This is useful for color coding elements by an attribute:
 
 	>>> blobs = image.findBlobs()
-	>>> cm = ColorMap(startcolor = Color.RED, endcolor = Color.Blue,
-	>>> startmap = min(blobs.area()) , endmap = max(blobs.area())
+	>>> cm = ColorMap(color = Color.RED, startmap = min(blobs.area()) , endmap = max(blobs.area()))
 	>>> for b in blobs:
 		b.draw(cm[b.area()])
 
