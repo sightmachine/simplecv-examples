@@ -14,8 +14,8 @@ That function is called **timeit**.
 Lets get a basic idea of how time it works. We will randomly generate a
 list of 10,000 numbers.
 
-    >>> import numpy.random
-    >>> randoms = randoms = [random.randint(0,1000) for r in xrange(10000)]
+    >>> from numpy.random import *
+    >>> randoms = [randint(0,1000) for r in xrange(10000)]
     >>> print randoms
 
 As you can see we now have a bit list of random numbers. Now what we want
